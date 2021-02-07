@@ -8,7 +8,7 @@ let reVal = hello("Nipoon");
 console.log(reVal);
 
 //Classical OOPs mai classes are used as Blue Print 
-
+// Par Yaha pe Prototyping used hoti hai
 //{} se object declare kar sakte hai usmai key value Pair store hota hai
 //Obj is JSON
 // JSON is Java Script Object Notation isse koi bhi tarike ka value declare kar sakte hai
