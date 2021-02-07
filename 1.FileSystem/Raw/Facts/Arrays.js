@@ -59,10 +59,20 @@ let arr = [
 
 //slice particular parts of array nikal sakte hai 
 let sliced = arr.slice(2, 4);
+console.log(arr);
 console.log(sliced);
 
 //splice function is used to remove elements from array
 // first paramereter is start second is count
-let spliced = arr.splice(3,2);
-console.log(sliced);
+// let spliced = arr.splice(3,2);
+// console.log(spliced);
+// console.log(arr);
 
+// //Split and Join Function Dekhna hai
+
+let string = "This is a String";
+
+let temp = string.split(" ");
+console.log(temp);
+
+console.log(temp.join("-"));
