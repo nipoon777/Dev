@@ -26,4 +26,8 @@ function viewFlat(dirPath){
 
 }
 
-viewFlat("d10");
+viewFlat("D:\BranchTransfer");
+
+module.exports = {
+    viewFFn : viewFlat
+}
