@@ -23,10 +23,10 @@ let command = input[0];
 
 switch(command){
     case "view" :
-        viewFn(input[1]);
+        viewFn(input[1], input[2]);
         break;
     case "organize":
-        organizeFn();
+        organizeFn(input[1]);
         break;
     case "help" :
         helpFn();

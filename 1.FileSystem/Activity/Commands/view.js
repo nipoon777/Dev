@@ -1,9 +1,7 @@
-const { dir } = require("console");
 let fs = require("fs");
 let path = require ("path");
 
-function viewExecutor(parameter) {
-    var dirPath = process.cwd();
+function viewExecutor(dirPath, parameter) {
     if(parameter == "--tree"){
         viewTree(dirPath, "");
     }else if ( parameter == "--flat"){
