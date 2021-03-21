@@ -124,7 +124,7 @@ function createPDF(dataArr, topicName, fileName){
     // pdfDoc.pipe(fs.createWriteStream(path.join(__dirname,topicName,fileName + ".pdf")));    
     // pdfDoc.text(JSON.stringify(dataArr));
     // pdfDoc.end();
-    var xls = json2xls(JSON.parse(JSON.stringify(dataArr)));
+    var xls = json2xls(JSON.parse(JSON.stringify(dataArr))cd );
 
     fs.writeFileSync(path.join(__dirname,topicName,fileName + ".xlsx"), xls, 'binary');
 }
