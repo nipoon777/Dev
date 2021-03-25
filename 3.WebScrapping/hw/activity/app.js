@@ -116,15 +116,15 @@ function extractStats(html){
             let strikeRate = selectorTool(batsCol[7]).text();
 
             let playerDetails = {
-                runs : runs,
-                ball : balls,
-                fours :fours,
-                sixes : sixes,
-                sr : strikeRate,
-                date : date,
-                venue : venueName,
-                result : result,
-                opponentName : selectorTool(teamNames[(i + 1) % 2]).text()
+                "runs" : runs,
+                "ball" : balls,
+                "fours" :fours,
+                "sixes" : sixes,
+                "sr" : strikeRate,
+                "date" : date,
+                "venue" : venueName,
+                "result" : result,
+                "opponentName" : selectorTool(teamNames[(i + 1) % 2]).text()
 
             };
             console.log(playerDetails);
@@ -152,7 +152,7 @@ function makeTeamFolder(teamName){
 }
 
 function makeJsonFolders(teamName, batsmanName){
-    let filePath = path.join(__dirname,mainFolder,teamName, batsmanName + ".json");
+    let filePath = path.join(__dirname,mainFolder,teamName,batsmanName + ".json");
     if (fs.existsSync(filePath) == false ){
         let createStream = fs.createWriteStream(filePath);
         createStream.end();
