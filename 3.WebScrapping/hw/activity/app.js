@@ -125,7 +125,6 @@ function extractStats(html){
                 "venue" : venueName,
                 "result" : result,
                 "opponentName" : selectorTool(teamNames[(i + 1) % 2]).text()
-
             };
             console.log(playerDetails);
             addPlayerData(selectorTool(teamNames[i]).text(),name, playerDetails);
@@ -136,12 +135,12 @@ function extractStats(html){
     }
 }
 
-function addPlayerData(teamName, playerName, playerArr){
+function addPlayerData(teamName, playerName, playerDetails){
     let filePath = path.join(__dirname, mainFolder, teamName, playerName + ".json");
     let oldFile = fs.readFileSync(filePath);
     oldFile = JSON.parse(oldFile);
     // console.log(prevArr);
-    oldFile.push(playerArr);
+    oldFile.push(playerDetails);
     fs.writeFileSync(filePath, JSON.stringify(oldFile));
 }
 
@@ -154,8 +153,8 @@ function makeTeamFolder(teamName){
 function makeJsonFolders(teamName, batsmanName){
     let filePath = path.join(__dirname,mainFolder,teamName,batsmanName + ".json");
     if (fs.existsSync(filePath) == false ){
-        let createStream = fs.createWriteStream(filePath);
-        createStream.end();
+        // let createStream = fs.createWriteStream(filePath);
+        // createStream.end();
         let arr = [];
         fs.writeFileSync(filePath, JSON.stringify(arr));
     }
