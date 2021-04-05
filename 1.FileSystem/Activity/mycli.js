@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // commands->
 // view --tree, --flat
 //  organize-> same folder , multiple folder
@@ -17,7 +19,7 @@
 let {organizeFn } = require("./Commands/organize.js");
 let {helpFn} = require("./Commands/help.js");
 let {viewFn} = require("./Commands/view.js");
-let input = process.argv.slice(2);
+let input = process.argv.slice(1);
 
 let command = input[0];
 
