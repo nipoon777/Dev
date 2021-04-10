@@ -1,21 +1,21 @@
-let fs = require("fs");
+// let fs = require("fs");
 
-let frP = fs.promises.readFile("f1.txt");
+// let frP = fs.promises.readFile("f1.txt");
 
-let thenKaPromise = frP.then(cb);
+// let thenKaPromise = frP.then(cb);
 
-console.log("Before");
+// console.log("Before");
 
-console.log(thenKaPromise);
+// console.log(thenKaPromise);
 
-function cb(data){
-    console.log("File data" + data);
-    return 10;
-}
+// function cb(data){
+//     console.log("File data" + data);
+//     return 10;
+// }
 
-setTimeout( function (){
-    console.log("Then ka Promise", thenKaPromise);
-}, 1000 );
+// setTimeout( function (){
+//     console.log("Then ka Promise", thenKaPromise);
+// }, 1000 );
 
 // thenKaPromise
 // -> thenKaPromise ->  cb return value
@@ -24,3 +24,22 @@ setTimeout( function (){
 // -> return value agar promise hoga toh uske resolution ka wait karega pending promise ka
 // err -> next then will not run
 
+let fs = require("fs");
+
+let frP = fs.promises.readFile("f1.txt");
+
+console.log("Before");
+
+let thenKP = frP.then(cb);
+
+console.log("Then ka Promise -> ", thenKP);
+
+function cb(data){
+    console.log(data);
+    return 10;
+}
+
+setTimeout( function(){
+    console.log(thenKP);
+}, 1000 );
+console.log("After");
