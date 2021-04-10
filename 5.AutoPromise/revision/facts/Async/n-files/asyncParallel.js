@@ -1,6 +1,6 @@
 let fs = require("fs");
 
-let arr = ["../f1.txt", "../f2.txt", "../f3.txt", "../f4.txt"];
+let arr = ["f1.txt", "f2.txt", "f3.txt", "f4.txt"];
 console.log("Before");
 for( let i = 0 ; i < arr.length ; i++ ){
     fs.readFile(arr[i], callback);
