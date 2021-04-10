@@ -3,7 +3,7 @@ let puppeteer = require("puppeteer");
 let page ;
 //Next hume email aur password mangavna padega jo object mai stored hai
 let { code } = require("./codes.js"); 
-let { email, password } = require("../../secrets.js");
+let { email, password } = require("../secrets.js");
 // These are used for initial browser settings
 // 1. headless = false -> Isse hum jo operation ho rahe hai vo dekh pate hai
 let browerLaunchPromise = puppeteer.launch({
@@ -41,10 +41,16 @@ browerLaunchPromise.then ( function(browerInstance){
     let questionObj = code[0];
     // console.log( "-------------------------");
     // console.log(questionObj);
-    console.log(questionObj.qname);
-    let val = questionSolver(url, questionObj.solution, questionObj.qname);
-    return val;
-
+    // console.log(questionObj.qname);
+    // let val = questionSolver(url, questionObj.solution, questionObj.qname);
+    // return val;
+    let quesWillBeSolvedPromise = questionSolver(url, questionObj.soln, questionObj.qName);
+    for(let i = 1 ; i < code.length ; i++ ){
+        quesWillBeSolvedPromise = quesWillBeSolvedPromise.then(
+            questionSolver(url, code[i].soln, code[i].qName)
+        );
+    }
+    return quesWillBeSolvedPromise;
 }).then( function (data) {
     console.log(data);
 }).catch( function(err) {
@@ -125,16 +131,16 @@ function questionSolver(modulepageUrl, code, questionName ){
             let pastePromise = page.keyboard.press("v");
             return pastePromise;
         }).then( function(){
-            let submitIsClickedPromise = page.click(".pull-right.btn.btn-primary.hr-monaco-submit");
+            let submitIsClickedPromise = page.waitAndclick(".pull-right.btn.btn-primary.hr-monaco-submit");
             return submitIsClickedPromise;
         })
         //Sare kaam hone ke baad abhi Submit
 
         .then(function(){
-            resolve("Code Submitted Successfully");
+            resolve();
         })
         .catch( function(){
-            reject("Some process wrong in submitting");
+            reject();
         });
 
     });
