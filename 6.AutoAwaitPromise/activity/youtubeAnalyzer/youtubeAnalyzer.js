@@ -29,11 +29,11 @@ let link = "https://www.youtube.com/playlist?list=PLzkuLC6Yvumv_Rd5apfPRWEcjf9b1
         }
         //later
 
-        await newPage.evaluate(getStats, 
-            "",
-            "")
+    let statDetails =  await newPage.evaluate(getStats, 
+            "span.style-scope.ytd-thumbnail-overlay-time-status-renderer",
+            "#video-title.yt-simple-endpoint.style-scope.ytd-playlist-video-renderer");
     
-    
+    console.table(statDetails);
     
     } catch (err) {
         console.log(err);
