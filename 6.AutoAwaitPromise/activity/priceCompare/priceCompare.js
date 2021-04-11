@@ -58,7 +58,6 @@ async function getListingFromPayTm(link, browserInstance, productName){
 
 }
 
-
 async function getListingFromflipKart(link, browserInstance, productName){
     let newPage = await browserInstance.newPage();
     await newPage.goto(link);
@@ -92,7 +91,6 @@ async function getListingFromflipKart(link, browserInstance, productName){
 
 // product Name, url of Amazon home Page
 // output -> top 5 matching product -> Price Name Print
-
 async function getListingFromAmazon(link, browserInstance, productName){
     let newPage = await browserInstance.newPage();
     await newPage.goto(link);
