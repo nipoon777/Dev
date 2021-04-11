@@ -59,8 +59,6 @@ async function getListingFromPayTm(link, browserInstance, productName){
 }
 
 
-
-
 async function getListingFromflipKart(link, browserInstance, productName){
     let newPage = await browserInstance.newPage();
     await newPage.goto(link);
