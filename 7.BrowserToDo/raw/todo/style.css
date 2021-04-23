@@ -1,0 +1,33 @@
+body{
+    margin: 0;
+}
+
+.input-container{
+    height: 15vh;
+    background-color: coral;
+}
+
+.task-container{
+    height: 85vh;
+    background-color: rgb(42, 42, 160);
+    color: white;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+}
+.task-list{
+    align : center;
+}
+li{
+    list-style: none;
+    font-size: 1.25rem;
+    background-color: blue;
+    width: 30vh;
+    height: 1.5rem;
+}
+.input_box{
+    font-family: 'Dancing Script', cursive;
+    height: 60%;
+    font-size: 1.25rem;
+}
+
+
