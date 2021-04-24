@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .inline{
+            /* 
+            Height width aur margin inline element pe nahi de sakte
+            Inline elements sirf required space lete hai
+             */
+            background-color: lightblue;
+            padding: 10px;
+            font-size: 1.5rem;
+        }
+        .block{
+            /* Height width de sakte hai */
+            padding-top: 10px;
+            text-align: center;
+            font-size: 1.5rem;
+            height: 100px;
+            width: 100px;
+            margin: 10px auto;
+            background: lightgreen;
+        }
+
+        .inline-block{
+            /* Best of both word is mai elements ek ke baad ek likh sakte hai */
+            font-size: 1.5rem;
+            display: inline-block;
+            background-color: lightseagreen;
+            /* Margin nahi de sakte ismai */
+            height: 100px;
+            width: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Inline elements -->
+    <span class="inline">I am Span</span>
+    <span class="inline">I am Span</span>
+    <span class="inline">I am Span</span>
+    <!-- Block level Elements -->
+    <div class="block">I am block</div>
+    <div class="block">I am block</div>
+    <div class="block">I am block</div>
+
+    <!-- In Line block -->
+    <div class="inline-block">I am inline block</div>
+    <div class="inline-block">I am inline block</div>
+    <div class="inline-block">I am inline block</div>
+
+</body>
+</html>
