@@ -15,7 +15,7 @@ body{
     font-family: 'Dancing Script', cursive;
 }
 .task-list{
-    align : center;
+    margin-left: 30%;
 }
 li{
     list-style: none;
