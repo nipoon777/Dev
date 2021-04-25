@@ -27,10 +27,11 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 1rem;
 }
 .filter_color{
     height: 40%;
-    width: 40%;
+    width: 60%;
     border-radius: 0.2rem;
 }
 
@@ -73,6 +74,12 @@ body{
 
 .main_container{
     height: 85vh;
+    padding-top: 2rem;
+    padding-left: 3rem;
+    display: flex;
+    justify-content: space-evenly;
+
+    flex-wrap: wrap;
 }
 
 .task_box{
@@ -126,7 +133,30 @@ body{
     width: 50%;   
 }
 
-
 .border{
     border: 0.2rem solid rgb(15, 15, 15);
+}
+
+.ticket_container{
+    height :10rem;
+    width : 16rem;
+    background-color:#f0f0d6;
+    border-radius: 0.2rem;
+}
+.ticket_filter{
+    height: 7%;
+}
+.ticket_desc_container{
+    padding-left: 0.5rem;
+}
+.uid{
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5rem;
+    color: #444;
+}
+
+.ticket_desc{
+    text-align:center;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5rem;
 }
