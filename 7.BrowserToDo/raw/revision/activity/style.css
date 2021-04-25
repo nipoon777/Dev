@@ -95,12 +95,14 @@ body{
 .input_box{
     padding: 2rem 3rem;
     display: block;
-    font-size: 2rem;
     height: 100%;
     width: 100%;
-    font-family: 'Kurale', serif;
-    outline: none;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5rem;
+    /*  line between space */
+    line-height: 145%;
     font-weight: 400;
+    outline: none;
 }
 
 .color_selector{
@@ -125,3 +127,6 @@ body{
 }
 
 
+.border{
+    border: 0.2rem solid rgb(15, 15, 15);
+}
