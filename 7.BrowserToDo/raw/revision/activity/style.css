@@ -1,0 +1,76 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin : 0px;
+}
+
+.nav-bar{
+    height : 15vh;
+    background-color: rgb(46, 49, 49);
+    display:flex;
+    align-items: center;
+    padding-left: 5rem;
+}
+.filter-container{
+    height: 60%;
+    width: 14rem;
+    background-color: rgb(149, 165, 166);
+    display: flex;
+    margin-right: 4rem;
+    border-radius: 0.2rem;
+}
+.filter{
+    height: 100%;
+    width:25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.filter_color{
+    height: 40%;
+    width: 40%;
+    border-radius: 0.2rem;
+}
+
+.pink{
+    background-color: #d24d57;
+}
+
+.green{
+    background-color: #00b16a;
+}
+
+.blue{
+    background-color: #86e2d5;
+}
+
+.black{
+    background-color: #24252a;
+}
+
+
+.icon-container{
+    height: 100%;
+    width:50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fas{
+    font-size: 1.75rem;
+    color: azure;
+}
+
+.operation-container{
+    height: 60%;
+    width: 8rem;
+    background-color: rgb(149, 165, 166);
+    display: flex;
+    border-radius: 0.3rem;
+}
+
+.main_container{
+    height: 85vh;
+}
