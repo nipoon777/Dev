@@ -3,6 +3,7 @@
 }
 body{
     margin: 0px;
+    background-color: whitesmoke;
 }
 
 .nav-bar{
@@ -73,4 +74,88 @@ body{
 
 .main-container{
     height: 85vh;
+    padding-top: 2rem;
+    padding-left: 3rem;
+    display: flex;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.modal_container{
+    position: absolute;
+    height : 18rem;
+    width : 36rem;
+    background-color: #d24d57;
+    left:30vw;
+    top:30vh;
+    display: flex;  
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.623) 
+}
+
+.input_container{
+    height: 100%;
+    width :75%;
+}
+.input_box{
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    outline: none;
+}
+
+.filter_container{
+    width: 25%;
+    background-color: rgb(59,58,58);
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.filter_modal{
+    width: 40%;
+    height: 18%;
+}
+
+.border{
+    border: 0.3rem solid black;
+}
+
+/* ticket-task */
+/* .main-container{
+    position: absolute;
+    height: 85vh;
+    display: flex;
+    padding-top: 5rem;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+} */
+.ticket_container{
+    margin-top: 2rem;
+    margin-left: 2rem;
+    height: 9rem;
+    width: 15rem;
+    background-color: aqua;
+    background-color: beige;
+}
+
+.priority_bar{
+    height:10%;
+    border-radius: 0.1rem;
+}
+.uid{
+    text-align: center;
+}
+.desc_container{
+    font-size: 1.2rem;
+    font-family: 'Raleway', sans-serif;
+}
+.desc{
+    display: flex;
+    justify-content: center;
 }
