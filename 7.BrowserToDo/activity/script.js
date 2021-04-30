@@ -82,5 +82,23 @@ function addTicket(color, content){
             </div>
     `
     mainContainer.appendChild(ticketContainer);
+    
+
+    let piorityBar = ticketContainer.querySelector(".priority_bar"); 
+    // Jo ticket banaya hai uska priroty bar leke aajao
+
+    piorityBar.addEventListener("click", changeColor);
+
+}
+
+function changeColor(e){
+        let colors = ["pink", "blue", "green", "black"];
+        console.log("Entered function");
+        let piorityBar = e.currentTarget;
+        let currColor = piorityBar.classList[1];
+        let idx = colors.indexOf(currColor);
+        let newColorIdx = (idx + 1) % 4;
+        piorityBar.classList.remove(currColor);
+        piorityBar.classList.add(colors[newColorIdx]);
 
 }

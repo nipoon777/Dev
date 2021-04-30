@@ -85,9 +85,10 @@ body{
 .modal_container{
     position: absolute;
     height : 18rem;
+    /* Variables ki value set kar sakte */
     width : 36rem;
     background-color: #d24d57;
-    left:30vw;
+    left:calc((100vw - 36rem) /2 );
     top:30vh;
     display: flex;  
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.623) 
@@ -150,10 +151,14 @@ body{
 }
 .uid{
     text-align: center;
+    margin-bottom: 0.1rem;
 }
 .desc_container{
+    height : 70%;
     font-size: 1.2rem;
     font-family: 'Raleway', sans-serif;
+    overflow-y: auto;
+    word-break: break-all;
 }
 .desc{
     display: flex;
