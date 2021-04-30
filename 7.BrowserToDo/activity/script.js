@@ -3,7 +3,11 @@ let mainContainer = document.querySelector(".main-container");
 
 let body = document.body;
 let plusBtn = document.querySelector(".fa-plus");
-console.log(colorBtn[0]);
+
+let crossBtn = document.querySelector(".fa-times");
+
+crossBtn.addEventListener("click", setDeleteState);
+
 
 for(let i = 0 ; i < colorBtn.length ; i++ ){
     
@@ -17,26 +21,31 @@ for(let i = 0 ; i < colorBtn.length ; i++ ){
 plusBtn.addEventListener("click", createElem);
 
 function createElem() {
-    let modalContainer = document.createElement("div");
-    modalContainer.setAttribute("class", "modal_container");
+    let modalContainer = document.querySelector(".modal_container");
+    if(modalContainer == null){
+        modalContainer = document.createElement("div");
+        modalContainer.setAttribute("class", "modal_container");
 
-    modalContainer.innerHTML = `
-    <div class="input_container">
-    <textarea class = "input_box" placeholder="Enter text here"></textarea>
+        modalContainer.innerHTML = `
+        <div class="input_container">
+        <textarea class = "input_box" placeholder="Enter text here"></textarea>
 
-    </div>
-    <div class="filter_container">
-        <div class="filter_modal pink"></div>
-        <div class="filter_modal blue"></div>
-        <div class="filter_modal green"></div>
-        <div class="filter_modal black"></div>
+        </div>
+        <div class="filter_container">
+            <div class="filter_modal pink"></div>
+            <div class="filter_modal blue"></div>
+            <div class="filter_modal green"></div>
+            <div class="filter_modal black"></div>
 
-    </div>
-    </div>
-    `;
-    body.appendChild(modalContainer);
-
-    handleModal(modalContainer);
+        </div>
+        </div>
+        `;
+        body.appendChild(modalContainer);
+        handleModal(modalContainer);
+    }
+    let inputBox = modalContainer.querySelector(".input_box");
+    inputBox.value = "";
+    
 }
 
 function handleModal( modalContainer ){
@@ -70,13 +79,14 @@ function handleModal( modalContainer ){
 function addTicket(color, content){
     let ticketContainer = document.createElement("div");
     ticketContainer.setAttribute("class", "ticket_container");
+
+    let uid = new ShortUniqueId();
     ticketContainer.innerHTML = `
             <div class="priority_bar ${color} ">
-
             </div>
             <div class="desc_container">
-                <h3 class="uid">#example</h3>
-                <div class="desc">
+                <h3 class="uid">#${uid()}</h3>
+                <div class="desc" contenteditable="true">
                     ${content}
                 </div>
             </div>
@@ -88,7 +98,7 @@ function addTicket(color, content){
     // Jo ticket banaya hai uska priroty bar leke aajao
 
     piorityBar.addEventListener("click", changeColor);
-
+    ticketContainer.addEventListener("click", deleteTask);
 }
 
 function changeColor(e){
@@ -101,4 +111,24 @@ function changeColor(e){
         piorityBar.classList.remove(currColor);
         piorityBar.classList.add(colors[newColorIdx]);
 
+}
+let deleteState = false;
+function setDeleteState(e) {
+    let crossBtn = e.currentTarget;
+
+    let parent = crossBtn.parentNode;
+
+    if(deleteState == false){
+        parent.classList.add("active");
+    }else{
+        parent.classList.remove("active");
+    }
+    deleteState = !deleteState;
+}
+
+function deleteTask(e){
+    let taskContainer = e.currentTarget;
+    if(deleteState) {
+        taskContainer.remove();
+    }
 }
