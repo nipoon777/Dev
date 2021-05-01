@@ -1,0 +1,57 @@
+body{
+    margin: 0;
+}
+
+*{
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
+
+.menu_container{
+    height : 7rem;
+    background-color: lightskyblue;
+}
+.formula_container{
+    height : 3rem;
+    background-color: lightgreen;
+}
+.grid{
+    height : calc(100vh - (7rem + 3rem + 3rem));
+    background-color: beige;
+}
+
+.sheets{
+    height : 3rem;
+    background-color: lightgrey;
+    display: flex;
+}
+.add_container{
+    height :100%;
+    width : 5%;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon{
+    font-size : 1.5rem;
+    color: azure;
+}
+.sheets_list{
+    width: 95%;
+    display: flex;
+    overflow-x: auto; 
+}
+.sheet{
+    height: 100%;
+    min-width: 7rem;
+    min-width: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active_sheet{
+    background-color: aqua;
+}
