@@ -13,7 +13,7 @@ body{
 }
 .formula_container{
     height : 3rem;
-    background-color: lightgreen;
+    background-color: lightpink;
 }
 .grid{
     height : calc(100vh - (7rem + 3rem + 3rem));
@@ -51,6 +51,57 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.top-left-block {
+    height: 30px;
+    width: 25px;
+    background-color: gray;
+}
+
+.top-row {
+    height: 30px;
+    background-color: lightgreen;
+    display: flex;
+    position: absolute;
+    top: 0px;
+    left: 25px
+}
+
+.grid_container {
+    height : 28rem;
+    position: relative;
+    overflow: scroll;
+}
+.row {
+    display: flex;
+}
+.col {
+    min-width: 80px;
+    border: 1px solid;
+    min-height:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-col {
+    width: 25px;
+    border: 1px solid red;
+}
+
+.grid {
+    position: absolute;
+    top: 30px;
+    left: 25px;
+}
+
+.left-col_box {
+    height: 30px;
+    background-color: lightgreen;
+    text-align: center;
+    border: 1px solid;
+}
+
 
 .active_sheet{
     background-color: aqua;
