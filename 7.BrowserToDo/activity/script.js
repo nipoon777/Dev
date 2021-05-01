@@ -1,12 +1,24 @@
 let colorBtn = document.querySelectorAll(".filter_color");
 let mainContainer = document.querySelector(".main-container");
-
 let body = document.body;
 let plusBtn = document.querySelector(".fa-plus");
-
 let crossBtn = document.querySelector(".fa-times");
 
 crossBtn.addEventListener("click", setDeleteState);
+plusBtn.addEventListener("click", createElem);
+let deleteState = false;
+
+let ticketArr = [];
+
+if (localStorage.getItem("allTask")) {
+    ticketArr = JSON.parse(localStorage.getItem("allTask"));
+    //For UI
+    ticketArr.forEach(ticket => {
+        let { id, color, content } = ticket;
+        addTicket(color, content, false, id);
+    });
+    
+}
 
 
 for(let i = 0 ; i < colorBtn.length ; i++ ){
@@ -17,9 +29,6 @@ for(let i = 0 ; i < colorBtn.length ; i++ ){
         mainContainer.style.backgroundColor = color;
     });
 }
-
-plusBtn.addEventListener("click", createElem);
-
 function createElem() {
     let modalContainer = document.querySelector(".modal_container");
     if(modalContainer == null){
@@ -47,7 +56,6 @@ function createElem() {
     inputBox.value = "";
     
 }
-
 function handleModal( modalContainer ){
     let filterContainer = document.querySelectorAll(".filter_modal");
 
@@ -55,6 +63,7 @@ function handleModal( modalContainer ){
 
     filterContainer[3].classList.add("border");
 
+    
     for(let i = 0 ; i < filterContainer.length ; i++ ){
         filterContainer[i].addEventListener("click",function(){
             filterContainer.forEach( colorElem => {
@@ -70,22 +79,22 @@ function handleModal( modalContainer ){
         if(e.key == "Enter" && textArea.value != ""){
             let content = textArea.value;
             modalContainer.remove();
-            addTicket(defaultColor, content);
+            addTicket(defaultColor, content, true);
 
         }
     })
 }
-
-function addTicket(color, content){
+function addTicket(color, content, flag, id){
     let ticketContainer = document.createElement("div");
     ticketContainer.setAttribute("class", "ticket_container");
 
-    let uid = new ShortUniqueId();
+    let uidFuntn = new ShortUniqueId();
+    let uid = id || uidFuntn();
     ticketContainer.innerHTML = `
             <div class="priority_bar ${color} ">
             </div>
             <div class="desc_container">
-                <h3 class="uid">#${uid()}</h3>
+                <h3 class="uid">#${uid}</h3>
                 <div class="desc" contenteditable="true">
                     ${content}
                 </div>
@@ -97,10 +106,20 @@ function addTicket(color, content){
     let piorityBar = ticketContainer.querySelector(".priority_bar"); 
     // Jo ticket banaya hai uska priroty bar leke aajao
 
+    if(flag){
+        let ticketObj = {"content" : content, "id" : `${uid}`, "color" : color};
+        ticketArr.push(ticketObj);
+        let finalArr = JSON.stringify(ticketArr);
+        localStorage.setItem("allTask", finalArr);
+    }
+
     piorityBar.addEventListener("click", changeColor);
     ticketContainer.addEventListener("click", deleteTask);
-}
 
+    let taskDec = ticketContainer.querySelector(".desc");
+
+    taskDec.addEventListener("keypress", editTask);
+}
 function changeColor(e){
         let colors = ["pink", "blue", "green", "black"];
         console.log("Entered function");
@@ -112,7 +131,6 @@ function changeColor(e){
         piorityBar.classList.add(colors[newColorIdx]);
 
 }
-let deleteState = false;
 function setDeleteState(e) {
     let crossBtn = e.currentTarget;
 
@@ -125,10 +143,42 @@ function setDeleteState(e) {
     }
     deleteState = !deleteState;
 }
-
 function deleteTask(e){
     let taskContainer = e.currentTarget;
     if(deleteState) {
-        taskContainer.remove();
+        //Remove from the local storage
+        let uidElem = taskContainer.querySelector(".uid");
+        let uid = uidElem.innerText.split("#")[1];
+        for (let index = 0; index < ticketArr.length; index++) {
+            let { id } = ticketArr[index];
+
+            if( id == uid){
+                ticketArr.splice(index, 1);
+                let finalArr = JSON.stringify(ticketArr);
+                localStorage.setItem("allTask", finalArr);
+                taskContainer.remove();
+                break;
+            }
+            
+        }       
+    }
+}
+
+function editTask(e){
+    let taskDec = e.currentTarget;
+    let uidElem = taskDec.parentNode.children[0];
+
+    let uid = uidElem.innerText.split("#")[1];
+    
+    for (let index = 0; index < ticketArr.length; index++) {
+        let { id } = ticketArr[index];
+        if( id == uid ){
+            ticketArr[index].content = taskDec.innerText;
+            let finalTaskArr = JSON.stringify(ticketArr);
+            localStorage.setItem("allTask", finalTaskArr);
+
+            break;
+        }
+        
     }
 }
