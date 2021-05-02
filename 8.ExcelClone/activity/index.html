@@ -13,8 +13,48 @@
 </head>
 <body>
     <div class="main_container">
-        <div class="menu_container">Menu</div>
-        <div class="formula_container">Formula</div>
+        <div class="menu_container">
+            <div class="formatting_container">
+                <div class="subgroup">
+                    <select id="font_family" class = "font_family">
+                        <option value="Arial">Arial</option>
+                        <option value="Sans-Serif">Sans-Serif</option>
+                        <option value="Forte">Forte</option>
+                        <option value="Calibri">Calibri</option>
+                        <option value="TimesRoman">TimesRoman</option>
+                    </select>
+                    <div class="BUI_container">
+                        <input type="button" value="B" class = "bold">
+                        <input type="button" value="U" class = "underline">
+                        <input type="button" value="I" class = "italic">
+                    </div>
+                </div>
+                
+                <div class="subgroup">
+                    <select id="font_size">
+                        <option value="8">8</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                        <option value="16">16</option>
+                    </select>
+                    <div class="color_container">
+                        <input type="color" id="color">
+                        <input type="color" id="bg_color">
+                    </div>
+                </div>
+            </div>
+            <div class="alignment_container">
+                <input type="button" value="L">
+                <input type="button" value="C">
+                <input type="button" value="R">
+            </div>
+        </div>
+        <div class="formula_container">
+            <input type="text" class="address_box" readonly>
+            <div class="separator">:</div>
+            <input type="text" class="formula_box">
+        </div>
         <div class="grid_container">
             <div class="top-left-block">
             </div>
