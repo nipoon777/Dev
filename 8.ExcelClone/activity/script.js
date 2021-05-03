@@ -83,3 +83,49 @@ for(let i = 0 ; i < allCells.length ; i++){
 }
 
 
+let leftBtn = document.querySelector(".left");
+let centerBtn = document.querySelector(".center");
+let rightBtn = document.querySelector(".right");
+
+let alignMentContainer = document.querySelector(".alignment_container");
+
+alignMentContainer.addEventListener("click", handleAlignment);
+
+function handleAlignment(e){
+    let target = e.path[0].classList[0];
+    let address = addressBar.value;
+    let { rid, cid} = getRowIdAndColId(address);
+    let cell = document.querySelector(`.col[ rid = "${rid}"][ cid = "${cid}"]`);
+    if( target == "left"){
+        cell.style.textAlign = "left";
+    }else if( target == "right"){
+        cell.style.textAlign = "right";
+    }else{
+        cell.style.textAlign = "center";
+    }
+}
+
+function getRowIdAndColId(address){
+    let cellColAdr = address.charCodeAt(0);
+    let cid = cellColAdr - 65;
+
+    let rid = Number(address.slice(1)) - 1;
+    
+    return { cid, rid};
+
+}
+
+let fontBtn = document.querySelector(".font_family");
+
+fontBtn.addEventListener("change", handleChangeFont);
+
+function handleChangeFont(){
+    let fontStyle = fontBtn.value;
+    let address = addressBar.value;
+
+    let { rid, cid} = getRowIdAndColId(address);
+    console.log(rid,cid);
+    let cell = document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`);
+console.log(cell);
+    cell.style.fontFamily = fontStyle;
+}

@@ -61,7 +61,6 @@ body{
     width : 20%;
 }
 
-
 /* ************************************************************************************************* */
 .formula_container{
     height : 3rem;
@@ -145,9 +144,9 @@ body{
     min-width: 80px;
     border: 1px solid;
     min-height:30px;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 
 .left-col {
