@@ -126,7 +126,6 @@ function handleAlignment(e){
     }
 }
 
-
 function getRowIdAndColId(address){
     let cellColAdr = address.charCodeAt(0);
     let cid = cellColAdr - 65;
@@ -137,6 +136,8 @@ function getRowIdAndColId(address){
 /* 
     Handle font style, size and color
 */
+
+
 
 
 
