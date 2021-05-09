@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=.main, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -15,7 +14,7 @@
     <div class="main_container">
         <div class="menu_container">
             <div class="formatting_container">
-                <div class="subgroup">
+                <div class="subgroup changeInp">
                     <select id="font_family" class = "font_family">
                         <option value="Arial">Arial</option>
                         <option value="Sans-Serif">Sans-Serif</option>
@@ -30,17 +29,19 @@
                     </div>
                 </div>
                 
-                <div class="subgroup">
-                    <select id="font_size">
-                        <option value="8">8</option>
+                <div class="subgroup btnInp">
+                    <select class="font_size">
+                        
                         <option value="10">10</option>
                         <option value="12">12</option>
                         <option value="14">14</option>
                         <option value="16">16</option>
+                        <option value="32">32</option>
+                        <option value="64">64</option>
                     </select>
                     <div class="color_container">
-                        <input type="color" id="color">
-                        <input type="color" id="bg_color">
+                        <input type="color" class="color">
+                        <input type="color" class="bg_color">
                     </div>
                 </div>
             </div>
@@ -71,10 +72,11 @@
                 <i class="fas fa-plus icon"></i>
             </div>
             <div class="sheets_list">
-                <div class="sheet active_sheet" sheet_Idx = "1">Sheet1</div>
+                <div class="sheet active_sheet" sheet_Idx = "1">Sheet 1</div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="init.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

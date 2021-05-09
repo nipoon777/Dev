@@ -61,6 +61,10 @@ body{
     width : 20%;
 }
 
+.active_btn{
+    background-color: gray;
+}
+
 /* ************************************************************************************************* */
 .formula_container{
     height : 3rem;
