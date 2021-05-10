@@ -1,7 +1,3 @@
-/* 
-    Create Sheets and Add functionality to sheets;
-*/
-
 let addBtn = document.querySelector(".add_container");
 let sheetList = document.querySelector(".sheets_list");
 let firstSheet = document.querySelector(".sheet");
@@ -20,12 +16,15 @@ let centerBtn = document.querySelector(".center");
 let rightBtn = document.querySelector(".right");
 let alignMentContainer = document.querySelector(".alignment_container");
 let alignment = document.querySelectorAll(".alignment_container>*");
+let sheetDB = workSheetDB[0];
+/* 
+    Create Sheets and Add functionality to sheets;
+*/
 
 firstSheet.addEventListener("click", handleActiveSheet);
 addBtn.addEventListener("click",addSheet);
 
 function addSheet(){
-    console.log("Working");
     let sheetArr = document.querySelectorAll(".sheet");
     let lastSheetElem = sheetArr[sheetArr.length - 1];
     let idx = lastSheetElem.getAttribute("sheet_Idx");
@@ -39,6 +38,18 @@ function addSheet(){
     newSheet.innerText = `Sheet ${idx + 1}`;
 
     sheetList.appendChild(newSheet);
+    //db mai bhi update karo
+    sheetArr.forEach( (sheet) => {
+        sheet.classList.remove("active_sheet");
+    });
+    sheetArr= document.querySelectorAll(".sheet");
+    sheetArr[sheetArr.length - 1].classList.add("active_sheet");
+    //Initialise New Sheet
+    initCurrentSheetDb();
+
+    sheetDB = workSheetDB[idx];
+    initUI();
+
     newSheet.addEventListener("click", handleActiveSheet);
 
 }
@@ -51,13 +62,79 @@ function handleActiveSheet(e){
     })
     if( !mySheet.classList[1]){
         mySheet.classList.add("active_sheet");
+    }  
+    let sheetIdx = mySheet.getAttribute("sheet_Idx");
+    sheetDB = workSheetDB[sheetIdx - 1];
+    
+    setUI(sheetDB);
+}
+
+/*  Initialise UI for all cells */
+function initUI(){
+    for( let i = 0 ; i < allCells.length ; i++){
+        allCells[i].style.fontWeight = "normal";
+        allCells[i].style.fontStyle = "normal";
+        allCells[i].style.textDecoration = "none";
+        allCells[i].style.fontFamily = "Arial";
+        allCells[i].style.fontSize = "16px";
+        allCells[i].style.textAlign = "left";
+        allCells[i].innerText = "";
+
     }
 }
 
 /* 
-    Address Bar Function adding event Listener to all the cells
-
+    Set the UI for all Cells
 */
+
+function setUI(sheetDB){
+    for( let i = 0 ; i < sheetDB.length ; i++ ){
+        for( let j = 0 ; j < sheetDB[i].length ; j++){
+            let cell = document.querySelector(`.col[rid="${i}"][cid="${j}"]`);
+            let { bold, 
+                italic, 
+                underline,
+                halign, 
+                fontFamily,
+                fontSize,
+                color,
+                bgColor,
+                value 
+            } = sheetDB[i][j];
+            cell.style.fontWeight = bold ? "bold" : "normal";
+            cell.style.fontStyle = italic ? "italic" :"normal";
+            cell.style.halign = halign;
+            cell.style.textDecoration = underline ? "underline" : "none";
+            cell.style.fontFamily = fontFamily;
+            cell.style.color = color;
+            cell.style.fontSize = fontSize;
+            cell.style.backgroundColor = bgColor;
+            cell.innerText = value;
+        }
+
+
+    }
+}
+/* 
+    To store what is added in a cell
+*/
+
+for( let i = 0 ;i < allCells.length ; i++){
+    allCells[i].addEventListener("blur", handleCellData);
+}
+
+function handleCellData(){
+    let address = addressBar.value;
+    let { rid, cid } = getRowIdAndColId(address);
+    let cellObj = sheetDB[rid][cid];
+    let cell = document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`);
+    cellObj.value = cell.innerText;
+}
+
+/* 
+    Address Bar Function adding event Listener to all the cells
+*/
+
 
 
 for(let i = 0 ; i < allCells.length ; i++){
@@ -119,7 +196,6 @@ allCells[0].click();
     L-C-R
 */
 
-
 alignMentContainer.addEventListener("click", handleAlignment);
 
 function handleAlignment(e){
@@ -148,7 +224,6 @@ function handleAlignment(e){
         cellObj.halign = "center";
     }
 }
-
 function getRowIdAndColId(address){
     let cellColAdr = address.charCodeAt(0);
     let cid = cellColAdr - 65;

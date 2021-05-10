@@ -25,24 +25,31 @@ grid.innerHTML = str;
 
 /* 
     2D sheet DB to track all the styling applied to a cell
+    and a 3D DB to keep track of all the data.
 */
-let sheetDB = [];
 
-for( let i = 0 ; i < 100 ; i++){
-    let cell =[];
-    for( let j = 0 ; j < 26 ; j++){
-        let cellObj = {
-            bold : false,
-            italic : false,
-            underline : false,
-            halign : "left",
-            fontFamily : "Arial",
-            fontSize : "10",
-            color : "",
-            bgColor : ""
+let workSheetDB = [];
+
+function initCurrentSheetDb(){
+    let sheetDB = [];
+    for( let i = 0 ; i < 100 ; i++){
+        let cell =[];
+        for( let j = 0 ; j < 26 ; j++){
+            let cellObj = {
+                bold : false,
+                italic : false,
+                underline : false,
+                halign : "left",
+                fontFamily : "Arial",
+                fontSize : "10",
+                color : "",
+                bgColor : "",
+                value : ""
+            }
+            cell.push(cellObj);
         }
-        cell.push(cellObj);
+        sheetDB.push(cell);
     }
-    sheetDB.push(cell);
+    workSheetDB.push(sheetDB);
 }
-console.log(sheetDB);
+initCurrentSheetDb();
