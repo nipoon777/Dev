@@ -16,6 +16,7 @@ let fontSizeBtn = document.querySelector(".font_size");
 let colorBtn = document.querySelector(".color");
 let bgColorBtn = document.querySelector(".bg_color");
 let alignment = document.querySelectorAll(".alignment_container>*");
+let sheetDB = workSheetDB[0];
 
 /* 
     Sheet Functionality Implemented here
@@ -40,7 +41,30 @@ function handleAddSheet(){
     newSheet.innerText = `Sheet ${idx + 1}`;
 
     sheetList.appendChild(newSheet);
+    sheetArr.forEach((sheet)=>{
+        sheet.classList.remove("active_sheet");
+    });
+    sheetArr = document.querySelectorAll(".sheet");
+    sheetArr[sheetArr.length - 1].classList.add("active_sheet");
+    //Initialise New Sheet
+    initSheetDB();
+
+    sheetDB = workSheetDB[idx];
+    initUI();
     newSheet.addEventListener("click", handleActiveSheet);
+}
+
+function initUI(){
+    for(let i = 0 ; i < allCells.length ; i++ ){
+        allCells[i].style.fontWeight = "normal";
+        allCells[i].style.fontStyle = "normal";
+        allCells[i].style.textDecoration = "none";
+        allCells[i].style.fontFamily = "Arial";
+        allCells[i].style.fontSize = "16px";
+        allCells[i].style.textAlign = "left";
+        allCells[i].innerText = ""; 
+    }
+    allCells[0].click();
 }
 
 function handleActiveSheet(e){
@@ -56,7 +80,52 @@ function handleActiveSheet(e){
         mySheet.classList.add("active_sheet");
     }
 
+    let sheetIdx = mySheet.getAttribute("sheet_idx");
+    sheetDB = workSheetDB[sheetIdx - 1];
+
+    setUI(sheetDB);
+}
+
+function setUI(sheetDB){
+    for( let i = 0 ; i < sheetDB.length ; i++ ){
+        for( let j = 0 ; j < sheetDB[i].length ; j++){
+            let cell = document.querySelector(`.col[rid="${i}"][cid="${j}"]`);
+            let { bold, 
+                italic, 
+                underline,
+                halign, 
+                fontFamily,
+                fontSize,
+                color,
+                bgColor,
+                value 
+            } = sheetDB[i][j];
+            cell.style.fontWeight = bold ? "bold" : "normal";
+            cell.style.fontStyle = italic ? "italic" :"normal";
+            cell.style.halign = halign;
+            cell.style.textDecoration = underline ? "underline" : "none";
+            cell.style.fontFamily = fontFamily;
+            cell.style.color = color;
+            cell.style.fontSize = fontSize;
+            cell.style.backgroundColor = bgColor;
+            cell.innerText = value;
+        }
+
     
+    }
+
+}
+
+for( let i = 0 ;i < allCells.length ; i++){
+    allCells[i].addEventListener("blur", handleCellData);
+}
+
+function handleCellData(){
+    let address = addressBar.value;
+    let { rid, cid } = getRowIdAndColId(address);
+    let cellObj = sheetDB[rid][cid];
+    let cell = document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`);
+    cellObj.value = cell.innerText;
 }
 
 

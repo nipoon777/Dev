@@ -33,25 +33,29 @@ for (let row = 0; row < rowSize; row++) {
 grid.innerHTML = str;
 
 
-let sheetDB = [];
 
-for( let row = 0 ; row < rowSize ; row++){
-    let rowArr =[];
-    for(let col = 0 ; col < characterSet ; col++){
-        let cellObj = {
-            bold : false,
-            italic : false,
-            underline : false,
-            fontFamily : "Arial",
-            halign : "left",
-            fontSize : "16",
-            color : "",
-            bgColor : "",
-            value : ""
+
+let workSheetDB = [];
+function initSheetDB(){
+    let sheetDB = [];
+    for( let row = 0 ; row < rowSize ; row++){
+        let rowArr =[];
+        for(let col = 0 ; col < characterSet ; col++){
+            let cellObj = {
+                bold : false,
+                italic : false,
+                underline : false,
+                fontFamily : "Arial",
+                halign : "left",
+                fontSize : "16",
+                color : "",
+                bgColor : "",
+                value : ""
+            }
+            rowArr.push(cellObj);
         }
-        rowArr.push(cellObj);
+        sheetDB.push(rowArr);
     }
-    sheetDB.push(rowArr);
+    workSheetDB.push(sheetDB);
 }
-
-console.log(sheetDB);
+initSheetDB();
