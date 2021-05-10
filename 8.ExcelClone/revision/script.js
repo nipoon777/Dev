@@ -1,47 +1,28 @@
-// Code for the grid structure
-
-let topRow = document.querySelector(".top_row");
-let leftCol = document.querySelector(".left_col");
-let grid = document.querySelector(".grid");
-const characterSet = 26;
-const rowSize = 100;
-let str = "";
-for (let index = 0; index < characterSet; index++) {
-    str += `<div class = 'top_col'> ${String.fromCharCode(65 + index)} </div>`;
-}
-
-topRow.innerHTML = str;
-
-str = "";
-for (let index = 0; index < rowSize; index++) {
-    str += `<div class = "left_col_box" > ${ index + 1}</div>`;    
-}
-leftCol.innerHTML = str;
-
-/* 
-    Make the 2D grid
-*/
-
-str = "";
-for (let row = 0; row < rowSize; row++) {
-    str += `<div class = "row">`;
-    for (let column = 0; column < characterSet; column++) {
-        str += `<div class = 'col' rid = ${row} cid = ${column} contenteditable = "true"></div>`;
-    }
-    str += "</div>";
-}
-grid.innerHTML = str;
-
-
+let addBtn = document.querySelector(".plus_container");
+let sheetList = document.querySelector(".sheets");
+let firstSheet = document.querySelector(".sheet");
+let alignmentContainer = document.querySelector(".alignment_container");
+let leftBtn = document.querySelector(".left");
+let rightBtn = document.querySelector(".right");
+let centerBtn = document.querySelector(".center");
+let allCells = document.querySelectorAll(".grid .col");
+let addressBar = document.querySelector(".address_box");
+let fontContainer = document.querySelector(".font_container");
+let fontFamBtn = document.querySelector(".font_family");
+let boldBtn = document.querySelector(".bold");
+let unBtn = document.querySelector(".underline");
+let italicBtn = document.querySelector(".italic");
+let fontSizeBtn = document.querySelector(".font_size");
+let colorBtn = document.querySelector(".color");
+let bgColorBtn = document.querySelector(".bg_color");
+let alignment = document.querySelectorAll(".alignment_container>*");
 
 /* 
     Sheet Functionality Implemented here
     First get the Button add listener to listen to click events
 */
 
-let addBtn = document.querySelector(".plus_container");
-let sheetList = document.querySelector(".sheets");
-let firstSheet = document.querySelector(".sheet");
+
 
 addBtn.addEventListener("click", handleAddSheet);
 firstSheet.addEventListener("click", handleActiveSheet);
@@ -52,9 +33,7 @@ function handleAddSheet(){
     let lastSheet = sheetArr[sheetArr.length - 1];
 
     let idx = lastSheet.getAttribute("sheet_idx");
-
     idx = Number(idx);
-
     let newSheet = document.createElement("div");
     newSheet.setAttribute("class", "sheet");
     newSheet.setAttribute("sheet_idx", idx + 1);
@@ -85,8 +64,6 @@ function handleActiveSheet(e){
     AddressBox Functionality
 */
 
-let allCells = document.querySelectorAll(".grid .col");
-let addressBar = document.querySelector(".address_box")
 
 
 allCells.forEach( (cell) => {
@@ -97,6 +74,43 @@ allCells.forEach( (cell) => {
         let colAdd = String.fromCharCode(cid + 65);
         let address = colAdd + rowAdd;
         addressBar.value = address;
+        let cellObj = sheetDB[rid][cid];
+
+        if(cellObj.bold){
+            boldBtn.classList.add("active_btn");
+        }else{
+            boldBtn.classList.remove("active_btn");
+        }
+
+        if(cellObj.italic){
+            italicBtn.classList.add("active_btn");
+        }else{
+            italicBtn.classList.remove("active_btn");
+        }
+
+        if(cellObj.underline){
+            unBtn.classList.add("active_btn");
+        }else{
+            unBtn.classList.remove("active_btn");
+        }
+
+        colorBtn.value = cellObj.color;
+        bgColorBtn.value =cellObj.bgColor;
+        fontSizeBtn.value = cellObj.fontSize;
+        fontFamBtn.value = cellObj.fontFamily;
+
+        alignment.forEach( (element) => {
+            element.classList.remove("active_btn");
+       });
+
+       if( cellObj.halign == "left"){
+           leftBtn.classList.add("active_btn");
+       }else if( cellObj.halign == "center"){
+           centerBtn.classList.add("active_btn");
+       }else if( cellObj.halign == "right"){
+           rightBtn.classList.add("active_btn");
+       }
+
     })
 });
 allCells[0].click();
@@ -104,10 +118,7 @@ allCells[0].click();
 
 /*  Handle alignment and fonts */
 
-let alignmentContainer = document.querySelector(".alignment_container");
-let leftBtn = document.querySelector(".left");
-let rightBtn = document.querySelector(".right");
-let center = document.querySelector(".center");
+
 
 alignmentContainer.addEventListener("click", handleAlignment);
 
@@ -116,13 +127,24 @@ function handleAlignment(e){
     let address = addressBar.value;
     let {cid, rid} = getRowIdAndColId(address);
 
-    let cell = document.querySelector(`.col[rid = "${rid}"][cid = "${cid}"]`)
+    let cell = document.querySelector(`.col[rid = "${rid}"][cid = "${cid}"]`);
+    let cellObj = sheetDB[rid][cid];
+
+    alignment.forEach((element) => {
+        element.classList.remove("active_btn");
+    });
     if( target == "left"){
+        leftBtn.classList.add("active_btn");
         cell.style.textAlign = "left";
+        cellObj.halign = "left";
     }else if(target == "center"){
+        centerBtn.classList.add("active_btn");
         cell.style.textAlign = "center";
+        cellObj.halign = "center";
     }else{
+        rightBtn.classList.add("active_btn");
         cell.style.textAlign = "right";
+        cellObj.halign = "right";
     }
 }
 
@@ -137,7 +159,78 @@ function getRowIdAndColId(address){
     Handle font style, size and color
 */
 
+fontContainer.addEventListener("click", handleFontContainerClick);
 
+function handleFontContainerClick(e){
+    let target = e.path[0].classList[0];
+    console.log(target);
+    let address = addressBar.value;
+    let {rid, cid} = getRowIdAndColId(address);
+    let cell = document.querySelector(`.col[rid = "${rid}"][cid = "${cid}"]`);
+    let cellObj = sheetDB[rid][cid];
+
+    if( target == "bold" ){
+        let isActive = boldBtn.classList.contains("active_btn");
+        if( isActive ){
+            boldBtn.classList.remove("active_btn");
+            cell.style.fontWeight = "normal";
+            cellObj.bold = false;
+        }else{  
+            boldBtn.classList.add("active_btn");
+            cell.style.fontWeight = "bold";
+            cellObj.bold = true;
+        }
+    }else if( target == "italic" ){
+        let isActive = italicBtn.classList.contains("active_btn");
+        if( isActive ){
+            italicBtn.classList.remove("active_btn");
+            cell.style.fontStyle = "normal";
+            cellObj.italic = false;
+        }else{  
+            italicBtn.classList.add("active_btn");
+            cell.style.fontStyle = "italic";
+            cellObj.italic = true;
+        }
+    }else if( target == "underline" ){
+        let isActive = unBtn.classList.contains("active_btn");
+        if( isActive ){
+            unBtn.classList.remove("active_btn");
+            cell.style.textDecoration = "none";
+            cellObj.underline = false;
+        }else{  
+            unBtn.classList.add("active_btn");
+            cell.style.textDecoration = "underline";
+            cellObj.underline = true;
+        }
+    }
+}
+fontContainer.addEventListener("change", handleFontContainerChange);
+
+function handleFontContainerChange(e){
+    let target = e.path[0].classList[0];
+    let address = addressBar.value;
+    let {rid, cid} = getRowIdAndColId(address);
+    let cell = document.querySelector(`.col[rid = "${rid}"][cid = "${cid}"]`);
+    let cellObj = sheetDB[rid][cid];
+
+    if( target == "font_family"){
+        let fontFamily = fontFamBtn.value;
+        cell.style.fontFamily = fontFamily;
+        cellObj.fontFamily = fontFamily;
+    }else if( target == "font_size"){
+        let fontSize = fontSizeBtn.value;
+        cell.style.fontSize = fontSize + "px";
+        cellObj.fontSize = fontSize + "px";
+    }else if( target == "color"){
+        let color = colorBtn.value;
+        cell.style.color = color;
+        cellObj.color = color;
+    }else if( target == "bg_color"){
+        let bgColor = bgColorBtn.value;
+        cell.style.backgroundColor = bgColor;
+        cellObj.bgColor = bgColor;
+    }
+}
 
 
 
