@@ -81,6 +81,7 @@ function initUI(){
         allCells[i].innerText = "";
 
     }
+    allCells[0].click();
 }
 
 /* 
@@ -112,8 +113,9 @@ function setUI(sheetDB){
             cell.innerText = value;
         }
 
-
+    
     }
+    
 }
 /* 
     To store what is added in a cell
