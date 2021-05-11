@@ -44,7 +44,9 @@ function initCurrentSheetDb(){
                 fontSize : "10",
                 color : "",
                 bgColor : "",
-                value : ""
+                value : "",
+                formula: "",
+                children :""
             }
             cell.push(cellObj);
         }

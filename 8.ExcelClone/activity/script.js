@@ -17,6 +17,7 @@ let rightBtn = document.querySelector(".right");
 let alignMentContainer = document.querySelector(".alignment_container");
 let alignment = document.querySelectorAll(".alignment_container>*");
 let sheetDB = workSheetDB[0];
+let formulaInput = document.querySelector(".formula_box");
 /* 
     Create Sheets and Add functionality to sheets;
 */
@@ -320,6 +321,60 @@ function handleChangeEvents(e){
     }
 }
 
+/* 
+    Formula Section 
+*/
 
+formulaInput.addEventListener("keydown", function(e){
+    if( e.key == "Enter" && formulaInput.value != ""){
+        let newformula = formulaInput.value;
+        let address = addressBar.value;
+        let { rid, cid } = getRowIdAndColId(address);
+        // let cellObj = sheetDB[rid][cid];
+        let evaluatedVal = evaluateFormula(newformula);
 
+        setUIByFormula(evaluatedVal, rid, cid);
+        // DB Update;
+        setFormula(evaluatedVal, newformula, rid, cid, address);
+        
+    }
+});
+function setFormula(evaluatedVal, newformula, rid, cid, address){
+    let cellObj = sheetDB[rid][cid];
+    cellObj.value = evaluatedVal;
+    cellObj.formula = newformula;
+    let formulaTokens = newformula.split(" ");
+    for (let index = 0; index < formulaTokens.length; index++) {
+        let firstCharOfToken = formulaTokens[index].charCodeAt(0);
+        if( firstCharOfToken >= 'A' && firstCharOfToken <= 'Z'){
+            let parentRIDCID = getRowIdAndColId(formulaTokens[index]);
+            let cellObj = sheetDB[parentRIDCID.rid][parentRIDCID.cid];
+            cellObj.children.push(address);
+        }
+    }
+}
+function evaluateFormula(newformula){
+    let formula = newformula.split(" ");
 
+    for( let i = 0 ; i < formula.length ; i++ ){
+        let firstCharOfToken = formula[i].charCodeAt(0);
+
+        if( firstCharOfToken >= 'A' && firstCharOfToken <= 'Z'){
+            let { rid, cid } = getRowIdAndColId(formula[i]);
+            // console.log(rid, cid);
+            let cellObj = sheetDB[rid][cid];
+
+            let { value } = cellObj;
+            // console.log(value);
+            newformula = newformula.replace(formula[i], value);
+        }
+    }
+
+    let ans = eval(newformula);
+    console.log(ans);
+    return ans;
+}
+
+function setUIByFormula( evaluatedVal, rid, cid ){
+    document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`).innerText = evaluatedVal;
+}
