@@ -17,6 +17,7 @@ let colorBtn = document.querySelector(".color");
 let bgColorBtn = document.querySelector(".bg_color");
 let alignment = document.querySelectorAll(".alignment_container>*");
 let sheetDB = workSheetDB[0];
+let formulaInput = document.querySelector(".formula_box");
 
 /* 
     Sheet Functionality Implemented here
@@ -303,3 +304,70 @@ function handleFontContainerChange(e){
 
 
 
+/* 
+    Formula Implementation
+*/
+
+formulaInput.addEventListener("keydown", handleFormula);
+
+
+function handleFormula(e){
+    if( e.key == "Enter" && formulaInput.value != "" ){
+        // ( 2 * A1 + A2 )
+        let formulaInp = formulaInput.value;
+        let val = evaluateFormula(formulaInp);
+        //Abhi Evaluate formula ko call karenge
+        let address = addressBar.value;
+        let { rid, cid } = getRowIdAndColId(address);
+        // UI mai bhi Set Karna Hai
+        setUIbyFormula(val, rid, cid);
+        // Set karna Padega abhi DB mai jo bhi value aaya hai Sath hi sath Parent mai bhi child ko add karna hai
+        setContentsInDb(val, formulaInp,rid, cid);
+
+    }
+}
+
+function setContentsInDb(val, formula, rid, cid){
+    let cellObj = sheetDB[rid][cid];
+    cellObj.formula = formula;
+    cellObj.val = val;
+    let cellAddress = addressBar.value;
+    let formulaArr = formula.split(" ");
+    
+    formulaArr.forEach( (address) => {
+       
+        let firstChar = address.charCodeAt(0);
+        if( firstChar >= '65' && firstChar <= '95' ){
+            let parentCell = getRowIdAndColId(address);
+            let parentObj = sheetDB[parentCell.rid][parentCell.cid];
+            parentObj.children.push(cellAddress);
+            console.log(parentObj);
+        }
+    });
+    console.log(sheetDB[rid][cid]);
+}
+
+function evaluateFormula(formula){
+    let formulaArr = formula.split(" ");
+
+    //[(,2, *, A1, +, A2, )]
+    // Abhi A1 and A2 ko numeric mai convert Karenge
+
+    formulaArr.forEach( (address) => {
+        let firstChar = address.charCodeAt(0);
+        if( firstChar >= '65' && firstChar <= '95' ){
+            let { rid, cid } = getRowIdAndColId(address);
+            let cellObj = sheetDB[rid][cid];
+            let { value } = cellObj;
+            formula = formula.replace(address, value);
+        }
+    });
+    console.log(formula);
+     
+    // Aur Evaluate Jo JS ki functionality hai usse use karenge
+    return eval(formula);
+}
+
+function setUIbyFormula( val, rid, cid){
+    document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`).innerText = val;
+}

@@ -50,7 +50,9 @@ function initSheetDB(){
                 fontSize : "16",
                 color : "",
                 bgColor : "",
-                value : ""
+                value : "",
+                children: [],
+                formula :""
             }
             rowArr.push(cellObj);
         }
