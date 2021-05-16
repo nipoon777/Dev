@@ -132,11 +132,9 @@ function handleCellData(){
 
 function changeChildren( cellObj ){
     let children = cellObj.children;
-
     children.forEach( ( child ) => {
         let childCell = getRowIdAndColId(child);
         let childObj = sheetDB[childCell.rid][childCell.cid];
-
         let evaluatedValue = evaluateFormula(childObj.formula);
         setUIbyFormula(evaluatedValue, childCell.rid, childCell.cid);
         childObj.value = evaluatedValue;
@@ -160,6 +158,12 @@ allCells.forEach( (cell) => {
         let address = colAdd + rowAdd;
         addressBar.value = address;
         let cellObj = sheetDB[rid][cid];
+        
+        if( cellObj.formula != ""){
+            formulaInput.value = cellObj.formula;
+        }else{
+            formulaInput.value = "";
+        }
 
         if(cellObj.bold){
             boldBtn.classList.add("active_btn");
