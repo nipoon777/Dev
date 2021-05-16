@@ -127,6 +127,21 @@ function handleCellData(){
     let cellObj = sheetDB[rid][cid];
     let cell = document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`);
     cellObj.value = cell.innerText;
+    changeChildren(cellObj);
+}
+
+function changeChildren( cellObj ){
+    let children = cellObj.children;
+
+    children.forEach( ( child ) => {
+        let childCell = getRowIdAndColId(child);
+        let childObj = sheetDB[childCell.rid][childCell.cid];
+
+        let evaluatedValue = evaluateFormula(childObj.formula);
+        setUIbyFormula(evaluatedValue, childCell.rid, childCell.cid);
+        childObj.value = evaluatedValue;
+        changeChildren(childObj);
+    });
 }
 
 
@@ -330,12 +345,11 @@ function handleFormula(e){
 function setContentsInDb(val, formula, rid, cid){
     let cellObj = sheetDB[rid][cid];
     cellObj.formula = formula;
-    cellObj.val = val;
+    cellObj.value = val;
     let cellAddress = addressBar.value;
     let formulaArr = formula.split(" ");
     
     formulaArr.forEach( (address) => {
-       
         let firstChar = address.charCodeAt(0);
         if( firstChar >= '65' && firstChar <= '95' ){
             let parentCell = getRowIdAndColId(address);
@@ -349,7 +363,7 @@ function setContentsInDb(val, formula, rid, cid){
 
 function evaluateFormula(formula){
     let formulaArr = formula.split(" ");
-
+    console.log(formulaArr);
     //[(,2, *, A1, +, A2, )]
     // Abhi A1 and A2 ko numeric mai convert Karenge
 
