@@ -111,10 +111,7 @@ function setUI(sheetDB){
             cell.style.backgroundColor = bgColor;
             cell.innerText = value;
         }
-
-    
     }
-
 }
 
 for( let i = 0 ;i < allCells.length ; i++){
@@ -126,8 +123,35 @@ function handleCellData(){
     let { rid, cid } = getRowIdAndColId(address);
     let cellObj = sheetDB[rid][cid];
     let cell = document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`);
+    if( cellObj.value == cell.innerText){
+        return;
+    }
+    if( cellObj.formula != ""){
+        removeFormula(cellObj, address);
+    }
     cellObj.value = cell.innerText;
+    
     changeChildren(cellObj);
+}
+
+function removeFormula(cellObj, childAddress){
+    let formula = cellObj.formula;
+
+    let formulaArr = formula.split(" ");
+
+    formulaArr.forEach( (address) => {
+        let firstChar = address.charCodeAt(0);
+        if( firstChar >= '65' && firstChar <= '95' ){
+            let parentCell = getRowIdAndColId(address);
+            let parentObj = sheetDB[parentCell.rid][parentCell.cid];
+
+            let child = parentObj.children.indexOf(childAddress);
+            parentObj.children.splice(child, 1);
+        }
+    });
+
+    cellObj.formula = "";
+
 }
 
 function changeChildren( cellObj ){
@@ -333,11 +357,16 @@ formulaInput.addEventListener("keydown", handleFormula);
 function handleFormula(e){
     if( e.key == "Enter" && formulaInput.value != "" ){
         // ( 2 * A1 + A2 )
-        let formulaInp = formulaInput.value;
-        let val = evaluateFormula(formulaInp);
-        //Abhi Evaluate formula ko call karenge
         let address = addressBar.value;
         let { rid, cid } = getRowIdAndColId(address);
+        let formulaInp = formulaInput.value;
+        let prevFormula = sheetDB[rid][cid].formula;
+        if( prevFormula != "" && prevFormula != formulaInp ){
+            removeFormula(sheetDB[rid][cid], address);
+        }
+        let val = evaluateFormula(formulaInp);
+        //Abhi Evaluate formula ko call karenge
+        
         // UI mai bhi Set Karna Hai
         setUIbyFormula(val, rid, cid);
         // Set karna Padega abhi DB mai jo bhi value aaya hai Sath hi sath Parent mai bhi child ko add karna hai
