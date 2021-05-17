@@ -18,7 +18,8 @@ let bgColorBtn = document.querySelector(".bg_color");
 let alignment = document.querySelectorAll(".alignment_container>*");
 let sheetDB = workSheetDB[0];
 let formulaInput = document.querySelector(".formula_box");
-
+let gridContainer = document.querySelector(".grid_container");
+let topLeftBlock = document.querySelector(".top_left_block");
 /* 
     Sheet Functionality Implemented here
     First get the Button add listener to listen to click events
@@ -86,7 +87,16 @@ function handleActiveSheet(e){
 
     setUI(sheetDB);
 }
+gridContainer.addEventListener("scroll", function handleGrid(e){
+    let top = gridContainer.scrollTop;
+    let left = gridContainer.scrollLeft;
 
+    topLeftBlock.style.top = top + "px";
+    topLeftBlock.style.left = left + "px";
+    topRow.style.top = top + "px";
+    leftCol.style.left = left + "px";
+
+})
 function setUI(sheetDB){
     for( let i = 0 ; i < sheetDB.length ; i++ ){
         for( let j = 0 ; j < sheetDB[i].length ; j++){
@@ -116,6 +126,17 @@ function setUI(sheetDB){
 
 for( let i = 0 ;i < allCells.length ; i++){
     allCells[i].addEventListener("blur", handleCellData);
+    allCells[i].addEventListener("keydown", function handleHeight( e ){
+        let obj = allCells[i].getBoundingClientRect();
+        let height = obj.height;
+        let address = addressBar.value;
+        console.log(height);
+    
+        let { rid } = getRowIdAndColId(address);
+        let leftCol = document.querySelectorAll(".left_col .left_col_box")[rid];
+        console.log(leftCol);
+        leftCol.style.height = height + "px";
+    });
 }
 
 function handleCellData(){
