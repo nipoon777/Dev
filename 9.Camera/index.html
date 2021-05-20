@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <video controls autoplay></video>
+    <audio controls autoplay></audio>
+    <script>
+        const allconstraints = navigator.mediaDevices.getSupportedConstraints();
+        let videoElem = document.querySelector("video");
+        let audioElem = document.querySelector("audio");
+        let constraints = {
+            video : true,
+            audio : true
+        }
+        navigator.mediaDevices
+                .getUserMedia(constraints)
+                .then( function (mediaStream){
+                    videoElem.srcObject = mediaStream;
+                    audioElem.srcObject = mediaStream
+                })
+                .catch( function(err) {
+                    console.log(err);
+                });
+
+    </script>
+</body>
+</html>
