@@ -5,57 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <video controls autoplay></video>
-    <audio controls autoplay></audio>
-    <button id ="record_video"> Record </button>
-    <script>
-        // const allconstraints = navigator.mediaDevices.getSupportedConstraints();
-        let videoElem = document.querySelector("video");
-        let audioElem = document.querySelector("audio");
-        let constraints = {
-            video : true,
-            audio : true
-        }
-        let videoRecorder = document.querySelector("#record_video");
-        let recordState = false;
-        
-        let mediaRecorder;
-        let buffer = [];
-        navigator.mediaDevices
-                .getUserMedia(constraints)
-                .then( function (mediaStream){
-                    // videoElem.srcObject = mediaStream;
-                    // audioElem.srcObject = mediaStream;
-                    mediaRecorder = new MediaRecorder(mediaStream);
-                    mediaRecorder.addEventListener("dataavailable", function(e){
-                        buffer.push(e.data);
-                    });
-
-                    mediaRecorder.addEventListener("stop", function () {
-                        let blob = new Blob(buffer, { type : "video/mp4"});
-                        const url = window.URL.createObjectURL(blob);
-                        let a = document.createElement("a");
-                        a.download = "file.mp4";
-                        a.href = url;
-                        a.click();
-                    });
-                })
-                .catch( function(err) {
-                    console.log(err);
-                });
-        videoRecorder.addEventListener("click", function(){
-            if( recordState == false ){
-                mediaRecorder.start();
-                videoRecorder.innerHTML = "Recording....";
-                recordState = true;
-            }else{
-                mediaRecorder.stop();
-                videoRecorder.innerHTML = "Record";
-                recordState = false;
-            }
-        })
-    </script>
+    <div class="video_container">
+        <video class ="video_btn" id = "video_elem" autoplay></video>
+    </div>
+    <button id ="record_video" class = "record_btn"> Record </button>
+    <script src="script.js"></script>
 </body>
 </html>
