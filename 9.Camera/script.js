@@ -1,6 +1,9 @@
 // const allconstraints = navigator.mediaDevices.getSupportedConstraints();
 let videoElem = document.querySelector("#video_elem");
 let audioElem = document.querySelector("audio");
+
+// So that user hame permission de camera aur microphone use karne 
+
 let constraints = {
     video : true,
     audio : true
@@ -11,7 +14,7 @@ let recordState = false;
 let mediaRecorder;
 let buffer = [];
 navigator.mediaDevices
-        .getUserMedia(constraints)
+        .getUserMedia(constraints)// Hame promise return hoga depending on user input ya toh then call hoga ya toh catch
         .then( function (mediaStream){
             videoElem.srcObject = mediaStream;
             // audioElem.srcObject = mediaStream;
