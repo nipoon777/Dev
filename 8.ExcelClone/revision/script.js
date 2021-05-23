@@ -156,7 +156,8 @@ function handleCellData(){
 }
 
 function removeFormula(cellObj, childAddress){
-    let formula = cellObj.formula;
+    //( 2 * A1 )
+    let formula = cellObj.formula;//F2
 
     let formulaArr = formula.split(" ");
 
@@ -172,17 +173,16 @@ function removeFormula(cellObj, childAddress){
     });
 
     cellObj.formula = "";
-
 }
 
 function changeChildren( cellObj ){
     let children = cellObj.children;
     children.forEach( ( child ) => {
-        let childCell = getRowIdAndColId(child);
-        let childObj = sheetDB[childCell.rid][childCell.cid];
-        let evaluatedValue = evaluateFormula(childObj.formula);
-        setUIbyFormula(evaluatedValue, childCell.rid, childCell.cid);
-        childObj.value = evaluatedValue;
+        let childCell = getRowIdAndColId(child);//F2
+        let childObj = sheetDB[childCell.rid][childCell.cid];// Formula
+        let evaluatedValue = evaluateFormula(childObj.formula);// Calculated Value
+        setUIbyFormula(evaluatedValue, childCell.rid, childCell.cid);// UI
+        childObj.value = evaluatedValue;// Formula same, children array 
         changeChildren(childObj);
     });
 }
