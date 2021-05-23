@@ -9,15 +9,48 @@
         body{
             margin: 0px;
         }
+        button{
+            height: 2rem;
+            width: 2rem;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+        .blue{
+            background-color: blue;
+        }
     </style>
 </head>
 <body>
+    <div class="color_container">
+        <button class="red"></button>
+        <button class="green" ></button>
+        <button class="blue" ></button>
+
+    </div> 
     <canvas id = "board">
     </canvas>
-    
+       
     <script>
         let board = document.getElementById("board");
+        let colorContainer = document.querySelector(".color_container");
         board.height = window.innerHeight;
+
+        colorContainer.addEventListener("click",  changeStrokeStyle);
+
+        function changeStrokeStyle(e){
+            let target = e.path[0].classList[0];
+            if( target == "red"){
+                tool.strokeStyle = "red";
+            }else if( target == "green"){
+                tool.strokeStyle = "green";
+            }else if( target == "blue"){
+                tool.strokeStyle = "blue";
+            }
+        }
         
         board.width = window.innerWidth;
         window.addEventListener("resize", function (){
@@ -71,8 +104,9 @@
         document.body.addEventListener("mousedown", function(e){
             let x = e.clientX;
             let y = e.clientY;
+            y = getCordinates(y);
             tool.beginPath();
-            tool.strokeStyle = "green";
+            // tool.strokeStyle = "green";
             tool.moveTo(x, y);
             isClicked = true;
         });
@@ -81,6 +115,7 @@
             if( isClicked ){
                 let x = e.clientX;
                 let y = e.clientY;
+                y = getCordinates(y);
                 tool.lineTo(x, y);
                 tool.stroke();
             }
@@ -88,11 +123,16 @@
         document.body.addEventListener("mouseup", function(e){
             let x = e.clientX;
             let y = e.clientY;
-            tool.lineTo(x, y);
-            tool.stroke();
+            // tool.lineTo(x, y);
+            // tool.stroke();
             isClicked = false;
 
-        })
+        });
+
+        function getCordinates(initialY){
+            let rect = colorContainer.getBoundingClientRect();
+            return initialY - rect.height;
+        }
 
 
     </script>
