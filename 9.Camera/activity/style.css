@@ -23,4 +23,16 @@ body{
     border-radius: 50%;
     right: 4vw;
     top: 34vh;
+    border: none;
+}
+
+.picture_btn{
+    position: fixed;
+    height: 5rem;
+    width: 5rem;
+    z-index: 2;
+    border-radius: 50%;
+    right: 4vw;
+    top: 62vh;
+    border: none;
 }
