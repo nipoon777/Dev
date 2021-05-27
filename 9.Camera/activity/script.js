@@ -1,5 +1,6 @@
 // const allconstraints = navigator.mediaDevices.getSupportedConstraints();
 let videoElem = document.querySelector("#video_elem");
+let videoPlayer = document.querySelector("video");
 let audioElem = document.querySelector("audio");
 let pictureElem = document.querySelector(".picture_btn");
 // So that user hame permission de camera aur microphone use karne 
@@ -56,14 +57,14 @@ pictureElem.addEventListener("click", capture);
 
 function capture(){
     let canvas = document.createElement('canvas');
-    canvas.height = videoElem.height;
-    canvas.width = videoElem.width;
+    canvas.height = videoPlayer.videoHeight;
+    canvas.width = videoPlayer.videoWidth;
 
     let tool = canvas.getContext('2d');
-    tool.drawImage(videoElem, 0, 0);
+    tool.drawImage(videoPlayer, 0, 0);
 
     let link = document.createElement('a');
-    link.download = "image.jpg";
+    link.download = "image.png";
     link.href = canvas.toDataURL();
     link.click();
     link.remove();
