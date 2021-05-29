@@ -3,6 +3,7 @@
 }
 body{
     margin: 0px;
+    overflow: hidden;
 }
 
 .video_container{
@@ -24,8 +25,22 @@ body{
     right: 4vw;
     top: 34vh;
     border: none;
+    background: none;
+    border: 8px solid white;
 }
 
+.record_div, .picture_div{
+    height: 70%;
+    width: 80%;
+    border-radius: 50%;
+    margin: auto;
+}
+.record_div{
+    background-color: red;
+}
+.picture_div{
+    background-color: white;
+}
 .picture_btn{
     position: fixed;
     height: 5rem;
@@ -33,6 +48,73 @@ body{
     z-index: 2;
     border-radius: 50%;
     right: 4vw;
-    top: 62vh;
+    top: 50vh;
     border: none;
+    background: none;
+    border: 8px solid white;
+}
+
+.filter_container{
+    position: fixed;
+    top: 10rem;
+    left : 3rem;
+    height: 60vh;
+    width: 8vw;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+}
+
+.filter{
+    border: 1px solid white;
+    height: 20%;
+    background: url(https://images.unsplash.com/photo-1591526038358-0e3d334fb8c0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100
+    );
+    background-blend-mode: color-burn;
+    background-size: cover;   
+}
+.picture_animation{
+    animation: strokeInOut 1s;
+}
+.record_animation{
+    animation : strokeInOut 0.8s infinite;
+}
+
+
+@keyframes strokeInOut{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.5);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.filter_container, .video_btn, .picture_btn{
+    z-index: 5;
+}
+.zoom{
+    z-index: 4;
+}
+.zoom{
+    height: 20vh;
+    width: 5vw;
+    position: fixed;
+    background-color: #222;
+    display: flex;
+    flex-direction: column;
+    top : 10vh;
+    right: 5vw;
+}
+
+.zoom button{
+    color: white;
+    background-color: #222;
+    border: none;
+    outline: none;
+    height: 50%;
+    font-size: 3.5rem;
 }
