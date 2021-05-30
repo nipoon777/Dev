@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="indexedDB">
+        Database : <input type="text" value="notes" id = "index">
+        Version : <input type="text" value="1" id= "version">
+        <button id = "createDB"> CreateDB</button>
+        <button id = "addNotes"> AddNotes</button>
+    </div>
+</body>
+
+<script>
+    const createDB = document.getElementById("createDB");
+    const addNotes = document.getElementById("addNotes");
+    let db;
+
+    createDB.addEventListener( "click", function(){
+        createDb();
+    });
+
+    function createDb(){
+        let dbName = document.getElementById("index").value;
+        let version = document.getElementById("version").value;
+        let req = indexedDB.open(dbName, version);
+
+        req.onupgradeneeded = function(e){
+            alert("Upgrade was called");
+            db = req.result;
+            db.createObjectStore('notes', {keyPath : 'nid'});
+
+        }
+
+        req.onsuccess = function(e){
+            alert("Success was called");
+            db = req.result;
+            viewNotes();
+        }
+        req.onerror = function(e){
+            alert("error was called" + " " + e.target.error);
+        }
+    }
+    addNotes.addEventListener("click", function(){
+        addNote();
+    })
+
+
+    function addNote(){
+        let note = {
+            nid : "Nipoon",
+            text : "Hello"
+        }
+
+        let tx = db.transaction('notes','readwrite');
+        let notesStore = tx.objectStore('notes');
+        notesStore.add(note);
+    }
+
+    function viewNotes(){
+        let tx = db.transaction("notes", "readonly");
+        let notes = tx.objectStore("notes");
+        let request = notes.openCursor();
+
+        request.onsuccess = function(e){
+            let cursor = request.result;
+            if(cursor){
+                console.log("cursor");
+                console.log(cursor.value);
+                cursor.continue();
+            }
+        }
+    }
+
+</script>
+</html>

@@ -99,11 +99,12 @@ navigator.mediaDevices
 
             mediaRecorder.addEventListener("stop", function () {
                 let blob = new Blob(buffer, { type : "video/mp4"});
-                const url = window.URL.createObjectURL(blob);
+                /* const url = window.URL.createObjectURL(blob);
                 let a = document.createElement("a");
                 a.download = "file.mp4";
                 a.href = url;
-                a.click();
+                a.click(); */
+                addMediaToGallery(blob, "video");
                 buffer = [];
             });
         })
@@ -151,13 +152,14 @@ function capture(){
         tool.fillStyle = filter;
         tool.fillRect(0, 0 , canvas.width, canvas.height);
     }
-    let link = document.createElement('a');
+    /* let link = document.createElement('a');
     link.download = "image.png";
     link.href = canvas.toDataURL();
 
     
     link.click();
-    link.remove();
+    link.remove(); */
+    addMediaToGallery(canvas.toDataURL(), "img");
     canvas.remove();
 
     setTimeout( function(){
