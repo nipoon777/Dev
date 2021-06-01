@@ -109,6 +109,20 @@ body{
     top : 10vh;
     right: 5vw;
 }
+.gallery{
+    width: 5rem;
+    height: 5rem;
+    /* background-color: aliceblue; */
+    position: fixed;
+    z-index: 10;
+    font-size: 200%;
+    top: 30rem;
+    right: 4vw;
+}
+.fa-image{
+    font-size: 250%;
+    color: white;
+}
 
 .zoom button{
     color: white;
@@ -120,16 +134,6 @@ body{
 }
 
 
-.gallery{
-    width: 5rem;
-    height: 5rem;
-    background-color: aliceblue;
-    display: fixed;
-    z-index: 10;
-    font-size: 200%;
-    bottom: 2rem;
-    top: 20rem;
-}
 
 .main_container{
     height : 100vh;

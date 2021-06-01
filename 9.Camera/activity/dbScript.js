@@ -133,13 +133,14 @@ function dowmloadMediaFromDb(mId){
         if(cursor){
             if(cursor.value.mId == mId){
                 console.log(cursor.value);
-                const url = cursor.value.media;
                 let a = document.createElement("a");
                 if( cursor.value.type == "img"){
+                    const url = cursor.value.media;
                     a.download = mId+".png";
                     a.href = url;
                     a.click();
                 }else{
+                    const url = window.URL.createObjectURL(cursor.value.media);
                     a.download = mId+".mp4";
                     a.href = url;
                     a.click();
