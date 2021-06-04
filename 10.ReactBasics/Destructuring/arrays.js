@@ -19,3 +19,18 @@ let [welcome, hi ="nipp" , done ="not yet" ] = newArr;
 console.log(welcome);
 console.log(hi);
 console.log(done);
+
+
+//Spread Operator
+let arr = [1, 2, 3, 4, 5, 6, 7, 8];
+
+let [fv, sv, tv, ...narr] = arr;
+console.log(fv);
+console.log(sv);
+console.log(tv);
+console.log(narr);
+//Spread operator pura naya array bana deta hai...
+
+narr[2] = 7;
+console.log(narr);
+console.log(arr);
