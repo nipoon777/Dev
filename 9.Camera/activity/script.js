@@ -167,3 +167,8 @@ function capture(){
     }, 1000);
 
 }
+let gallery = document.querySelector(".gallery");
+
+gallery.addEventListener("click", function(){
+    location.assign("gallery.html");
+})

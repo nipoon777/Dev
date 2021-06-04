@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="part1">
+            <div class="filterContainer">
+                <div class="filterColor Pink "></div>
+                <div class="filterColor Blue "></div>
+                <div class="filterColor Green"></div>
+                <div class="filterColor Black"></div>
+            </div>
+
+            <div class="actionContainer">
+                <div class="addBtn"><i class="fas fa-plus"></i></div>
+                <hr>
+                <div class="crossBtn"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="part2">
+            <div class="help"><i class="fas fa-question"></i></div>
+            <div class="reset"><i class="fas fa-history"></i></div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="container">
+
+        </div>
+
+        <div class="addPopUp">
+            <div class="closeAddPopUp"><i class="fas fa-times"></i></div>
+            <div class="heading">
+                Add Task
+            </div>
+            <hr>
+            <div class="inputs">
+                <textarea class="addHeading" placeholder="Enter Heading"></textarea>
+                <textarea class="addBody" placeholder="Add Text"></textarea>
+            </div>
+            <div class="mess"></div>
+            <div class="saveBtn Pink">Save</div>
+            <div class="viewSaveBtn Pink">Save</div>
+            <div class="priority">
+                <div class="setPriority Pink active"></div>
+                <div class="setPriority Blue "></div>
+                <div class="setPriority Green"></div>
+                <div class="setPriority Black"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="helper">
+        <div class="cover"></div>
+        <div class="priorityHelper">
+            <span>Click on color to sort task.</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+        <div class="addBtnHelper">
+            <span> Click + to add task</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+        <div class="crossBtnHelper">
+            <span>Click on cross botton to activate delete btn, then click on task to remove it.</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+        <div class="addDivHelper">
+            <span>Enter heading and body then click on save to add task</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+        <div class="resetHelper">
+            <span> Click on <i class="fas fa-history"></i> to reset all task</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js" defer></script>
+    <script src="./script.js"></script>
+    <script src="./help.js"></script>
+</body>
+
+</html>

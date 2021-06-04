@@ -139,10 +139,11 @@ body{
 .ticket_container{
     margin-top: 2rem;
     margin-left: 2rem;
-    height: 9rem;
-    width: 15rem;
+    height: 12rem;
+    width: 20rem;
     background-color: aqua;
     background-color: beige;
+    border: 0.5px solid black;
 }
 
 .priority_bar{

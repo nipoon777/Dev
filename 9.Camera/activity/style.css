@@ -140,6 +140,7 @@ body{
     width: 100vw;
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     background-color: brown;
     
 }
@@ -149,11 +150,14 @@ body{
     margin-right: 2rem;
     height: 20rem;
     width: 18rem;
+    min-width: 18rem;
+    min-height: 18rem;
     background-color: aquamarine;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 .video_elem, .img_elem{
     display: flex;
