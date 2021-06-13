@@ -14,20 +14,31 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        function Hello(){
+        function Hello(props){
             return (
-                <div>
+                <React.Fragment>
                     <h1>
-                        Hello From react
+                        Hello From {props.name}
                     </h1>
                     <p>
                         We are learning React Today
                     </p>
-                </div>     
+                </React.Fragment>     
             )
         }
 
-        ReactDOM.render(<Hello></Hello>, document.getElementById("root"));
+        function Hellos(){
+            return(
+                <React.Fragment>
+            <Hello name = "Nipoon "></Hello>
+            <Hello name = "Dhanraj "></Hello>
+            <Hello name = "Shubham "></Hello>
+            <Hello name = "Abhisek "></Hello>
+            </React.Fragment>
+            );
+        }
+
+        ReactDOM.render(<Hellos></Hellos>, document.getElementById("root"));
     
     
     </script>
