@@ -6,7 +6,8 @@ export default class Movies extends Component {
         super(props);
         this.state = {
             movies : getMovies(),
-            currSearchText :""
+            currSearchText :"",
+            // filterList : getMovies()
         }
 
     }
@@ -20,13 +21,41 @@ export default class Movies extends Component {
         })
 
     }
+    // Ye vala chis kaam karega par phir delete kaam nahi karega
+    // Jo bhi temporary kaam hota hai na usse state se na karke render mai hi manipulate karna chahiye
+    // Taki phir vo implementation mai aasaani ho toh handle change function mai filter array manipulate karne ki koi zaruarat nahi
     handleChange = (e) =>{
+        let task = e.target.value;
+        // if( task == ""){
+        //     this.setState({
+        //         filterList : this.state.movies,
+        //         currSearchText :""
+        //     })
+        // }else{
+        //     let nfilteredList = this.state.movies.filter((movie) =>{
+        //         let title = movie.title.trim().toLowerCase();
+        //         console.log(title);
+        //         return title.includes(task.toLowerCase());
+        //     })
+        //     this.setState({
+        //         filterList: nfilteredList,
+        //         currSearchText : task
+        //     })
         this.setState({
-            currSearchText : e.target.value
-        })
+            currSearchText : task
+        })        
     }
     render() {
-        let {movies} = this.state;
+        let {movies, currSearchText} = this.state;
+        let filterList = [];
+        if( currSearchText != ""){
+            filterList = movies.filter(movie =>{
+                let title = movie.title.trim().toLowerCase();
+                return title.includes(currSearchText);
+            })
+        }else{
+            filterList = movies
+        }
         return (
             <div>
             <div>
@@ -51,14 +80,22 @@ export default class Movies extends Component {
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Genre</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Rate</th>
+                        <th scope="col">
+                        <i className="fas fa-sort-up"></i>
+                            Stock
+                        <i className="fas fa-sort-down"></i>
+                        </th>
+                        <th scope="col">
+                        <i className="fas fa-sort-up"></i>
+                            Rate
+                        <i className="fas fa-sort-down"></i>
+                            </th>
                         <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     {
-                        movies.map( (movie) => {
+                        filterList.map( (movie) => {
                             return (
                                 <tr className = "movie_item" scope = "row" key = {movie._id}>
                                 <td></td> 
