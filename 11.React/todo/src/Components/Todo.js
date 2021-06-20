@@ -5,7 +5,7 @@ export default class Todo extends Component {
         super(props);
         this.state = {
             tasks : [{id : "1", taskName :"First task"},{id : "2", taskName :"Second task"},{id : "3", taskName :"Third task"}],
-            // currtask : ""
+            currtask : ""
         }
     }
     // handleChange = (e) => {
@@ -18,7 +18,7 @@ export default class Todo extends Component {
 
         this.setState({
             tasks : nta,
-            // currtask : ""
+            currtask : ""
         })
     }
     onDelete = (id) =>{
