@@ -45,6 +45,42 @@ export default class Movies extends Component {
             currSearchText : task
         })        
     }
+    handleRate = (e) =>{
+        let order = e.target.className;
+        let sortedArr = [];
+        if( order == "fas fa-sort-up"){
+            sortedArr = this.state.movies.sort((movieA, movieB) =>{
+                return movieA.dailyRentalRate - movieB.dailyRentalRate;
+            })
+
+        }else if( order == "fas fa-sort-down"){
+            sortedArr = this.state.movies.sort((movieA, movieB) =>{
+                return movieB.dailyRentalRate - movieA.dailyRentalRate;
+            })
+        }
+        this.setState({
+            movies : sortedArr
+        }
+        )
+    }
+    handleStock = (e) => {
+        let order = e.target.className;
+        let sortedArr = [];
+        if( order == "fas fa-sort-up"){
+            sortedArr = this.state.movies.sort((movieA, movieB) =>{
+                return movieA.numberInStock - movieB.numberInStock;
+            })
+
+        }else if( order == "fas fa-sort-down"){
+            sortedArr = this.state.movies.sort((movieA, movieB) =>{
+                return movieB.numberInStock - movieA.numberInStock;
+            })
+        }
+        this.setState({
+            movies : sortedArr
+        }
+        )
+    }
     render() {
         let {movies, currSearchText} = this.state;
         let filterList = [];
@@ -81,14 +117,14 @@ export default class Movies extends Component {
                         <th scope="col">Title</th>
                         <th scope="col">Genre</th>
                         <th scope="col">
-                        <i className="fas fa-sort-up"></i>
+                        <i className="fas fa-sort-up" onClick = {this.handleStock}></i>
                             Stock
-                        <i className="fas fa-sort-down"></i>
+                        <i className="fas fa-sort-down" onClick = {this.handleStock}></i>
                         </th>
                         <th scope="col">
-                        <i className="fas fa-sort-up"></i>
+                        <i className="fas fa-sort-up" onClick = {this.handleRate}></i>
                             Rate
-                        <i className="fas fa-sort-down"></i>
+                        <i className="fas fa-sort-down" onClick = {this.handleRate}></i>
                             </th>
                         <th scope="col">Delete</th>
                         </tr>
