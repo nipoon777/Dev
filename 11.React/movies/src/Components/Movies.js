@@ -149,7 +149,7 @@ export default class Movies extends Component {
                 </div>
                 <div className = "col-9 table-responsive">
                     <input type = "text" className= "form-control col-3" placeholder ="Enter here" value = {this.state.currSearchText} onChange = {this.handleChange}></input>
-                    <input type = "number" className= "form-control col-3 mt-3" placeholder ="Limit" value = {this.state.limit > filterList.length ? filterList.length : this.state.length}
+                    <input type = "number" className= "form-control col-3 mt-3" placeholder ="Limit" value = {this.state.limit > filterList.length ? filterList.length : this.state.limit}
                      onChange = {this.handleLimit} min ="1" max = {movies.length}></input>
                 { movies.length > 0 ?
                     <table className="mt-3 table table-striped table-hover md-3 sd-6">
