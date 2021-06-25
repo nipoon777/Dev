@@ -88,8 +88,7 @@ export default class Movies extends Component {
         }
         this.setState({
             movies : sortedArr
-        }
-        )
+        })
     }
     handleLimit = (e) =>{
         let num = Number(e.target.value);
@@ -152,6 +151,7 @@ export default class Movies extends Component {
                     <input type = "text" className= "form-control col-3" placeholder ="Enter here" value = {this.state.currSearchText} onChange = {this.handleChange}></input>
                     <input type = "number" className= "form-control col-3 mt-3" placeholder ="Limit" value = {this.state.limit > filterList.length ? filterList.length : this.state.length}
                      onChange = {this.handleLimit} min ="1" max = {movies.length}></input>
+                { movies.length > 0 ?
                     <table className="mt-3 table table-striped table-hover md-3 sd-6">
                     <thead>
                         <tr>
@@ -171,8 +171,10 @@ export default class Movies extends Component {
                         <th scope="col">Delete</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
                     {
+                       
                         filterList.map( (movie) => {
                             return (
                                 <tr className = "movie_item" scope = "row" key = {movie._id}>
@@ -184,11 +186,20 @@ export default class Movies extends Component {
                                 <td><button className = "btn btn-danger"onClick = {()=>this.handleDelete(movie._id)}>Delete</button></td>
                                 </tr>
                             )
-                        })
-                    }    
+                        }) 
                         
-                    </tbody>
-                    </table>   
+                        
+                        
+                    }    
+                    </tbody> 
+                    </table> 
+                    : 
+                    <div className="d-flex justify-content-center mt-3">
+                        <div className="spinner-border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                }
                     <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-end">
                         {/* <li class="page-item active"><a class="page-link" href="#">1</a></li>
