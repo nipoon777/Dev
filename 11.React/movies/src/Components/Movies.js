@@ -1,15 +1,25 @@
-import React, { Component } from 'react'
-import { getMovies } from './getMovies';
+import React, { Component } from 'react';
+// import { getMovies } from './getMovies';
+import axios from "axios";
 
 export default class Movies extends Component {
     constructor(props){
         super(props);
         this.state = {
-            movies : getMovies(),
+            movies : [],
             currSearchText :"",
+            limit : 4,
+            currPage : 1
             // filterList : getMovies()
         }
 
+    }
+    async componentDidMount(){
+        console.log("Component Did Mount");
+        let promise = await axios.get("https://backend-react-movie.herokuapp.com/movies");
+        this.setState({
+            movies : promise.data.movies
+        })
     }
     handleDelete = (id) =>{
         let nmoviesList = this.state.movies.filter((movie) =>{
@@ -81,17 +91,46 @@ export default class Movies extends Component {
         }
         )
     }
+    handleLimit = (e) =>{
+        let num = Number(e.target.value);
+        this.setState({
+            limit : num
+        });
+    }
+    handlePageNumber = (pageNumber) =>{
+        this.setState({
+            currPage : pageNumber
+        })
+    }
     render() {
-        let {movies, currSearchText} = this.state;
+        let {movies, currSearchText, currPage, limit} = this.state;
         let filterList = [];
+        
         if( currSearchText != ""){
             filterList = movies.filter(movie =>{
                 let title = movie.title.trim().toLowerCase();
                 return title.includes(currSearchText);
             })
         }else{
-            filterList = movies
+            filterList = movies;
         }
+        /* 
+            Pagination ka Code yaha pe Likhenge..
+            Sabse pehle JSX mai Map Function hi kaam karta hai sirf toh Hame Sares Pages Array Mai lena Padega
+        */
+        let totalPages = Math.ceil(filterList.length / limit);
+        let pageNumberArr = [];
+        for( let i = 0 ; i < totalPages ; i++ ){
+            pageNumberArr[i] = i + 1;
+        }
+
+
+        let startIndex = limit*(currPage - 1);
+        let endIndex = limit + startIndex;
+        filterList = filterList.slice(startIndex, endIndex);
+        
+        
+        
         return (
             <div>
             <div>
@@ -104,12 +143,15 @@ export default class Movies extends Component {
                 </div>
                 </nav>
             </div>
+            <div className="container">
             <div className = "row mt-3">
                 <div className = "col-3">
                     Hello
                 </div>
                 <div className = "col-9 table-responsive">
                     <input type = "text" className= "form-control col-3" placeholder ="Enter here" value = {this.state.currSearchText} onChange = {this.handleChange}></input>
+                    <input type = "number" className= "form-control col-3 mt-3" placeholder ="Limit" value = {this.state.limit > filterList.length ? filterList.length : this.state.length}
+                     onChange = {this.handleLimit} min ="1" max = {movies.length}></input>
                     <table className="mt-3 table table-striped table-hover md-3 sd-6">
                     <thead>
                         <tr>
@@ -147,10 +189,33 @@ export default class Movies extends Component {
                         
                     </tbody>
                     </table>   
+                    <nav aria-label="Page navigation example">
+                    <ul className="pagination justify-content-end">
+                        {/* <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                        
+                        </li> */}
+                        { pageNumberArr.map( (pageNumber) => {
+                            let classStyle = pageNumber == currPage ? "page-item active" : "page-item";
+
+                            return (
+                                <li className = {classStyle} key = {pageNumber} onClick = {()=>this.handlePageNumber(pageNumber)}>
+                                    <span className = "page-link">{pageNumber}</span></li>
+                            )
+                        })
+                        
+                        
+                        }
+
+
+                    </ul>
+                    </nav>
 
 
 
-
+                </div>
                 </div>
             </div>
             
