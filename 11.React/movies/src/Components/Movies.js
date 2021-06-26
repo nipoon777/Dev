@@ -9,7 +9,9 @@ export default class Movies extends Component {
             movies : [],
             currSearchText :"",
             limit : 4,
-            currPage : 1
+            currPage : 1,
+            cGenre : "All Genres",
+            genres : [{"_id" :"acbd", "name": "All Genres" }]
             // filterList : getMovies()
         }
 
@@ -17,8 +19,10 @@ export default class Movies extends Component {
     async componentDidMount(){
         console.log("Component Did Mount");
         let promise = await axios.get("https://backend-react-movie.herokuapp.com/movies");
+        let genreRes = await axios.get("https://backend-react-movie.herokuapp.com/genres");
         this.setState({
-            movies : promise.data.movies
+            movies : promise.data.movies,
+            genres : [...this.state.genres, ...genreRes.data.genres]
         })
     }
     handleDelete = (id) =>{
@@ -101,8 +105,14 @@ export default class Movies extends Component {
             currPage : pageNumber
         })
     }
+
+    handleGenres = (genre) =>{
+        this.setState({
+            cGenre : genre
+        })
+    }
     render() {
-        let {movies, currSearchText, currPage, limit} = this.state;
+        let {movies, currSearchText, currPage, limit, cGenre,genres} = this.state;
         let filterList = [];
         
         if( currSearchText != ""){
@@ -112,6 +122,14 @@ export default class Movies extends Component {
             })
         }else{
             filterList = movies;
+        }
+
+
+        if(cGenre!='All Genres')
+        {
+            filterList = filterList.filter(function(movieObj){
+                return movieObj.genre.name==cGenre
+            })
         }
         /* 
             Pagination ka Code yaha pe Likhenge..
@@ -145,7 +163,27 @@ export default class Movies extends Component {
             <div className="container">
             <div className = "row mt-3">
                 <div className = "col-3">
-                    Hello
+                        {genres.length > 1 ? 
+                        <>
+                        <ul className="list-group list-group-flush">
+                            {
+                                genres.map((genre) =>{
+                                    return (
+                                        <li className = "list-group-item" key = {genre._id} onClick = {() => this.handleGenres(genre.name)}> {genre.name} </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                        <div> Curr Genre : {cGenre}</div>
+                        </>
+                        :
+                        <div className="d-flex justify-content-center mt-3">
+                        <div className="spinner-border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                        </div>
+                    }
+
                 </div>
                 <div className = "col-9 table-responsive">
                     <input type = "text" className= "form-control col-3" placeholder ="Enter here" value = {this.state.currSearchText} onChange = {this.handleChange}></input>
