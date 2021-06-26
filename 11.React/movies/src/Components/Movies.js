@@ -150,16 +150,7 @@ export default class Movies extends Component {
         
         return (
             <div>
-            <div>
-                <nav className="navbar navbar-dark bg-dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="#">
-                    <h3 className="display-6"><img src="https://www.freeiconspng.com/uploads/movie-icon-27.png" alt="" width="40" height="34" className="d-inline-block align-text-top"/>
-                     Movies</h3>
-                    </a>
-                </div>
-                </nav>
-            </div>
+            
             <div className="container">
             <div className = "row mt-3">
                 <div className = "col-3">
