@@ -156,16 +156,18 @@ export default class Movies extends Component {
                 <div className = "col-3">
                         {genres.length > 1 ? 
                         <>
-                        <ul className="list-group list-group-flush">
-                            {
+                        <ul className="list-group">
+                            {   
+                                
                                 genres.map((genre) =>{
+                                    let genreStyle = genre.name == cGenre ? "list-group-item active" : "list-group-item";
                                     return (
-                                        <li className = "list-group-item" key = {genre._id} onClick = {() => this.handleGenres(genre.name)}> {genre.name} </li>
+                                        <li className = {genreStyle} key = {genre._id} onClick = {() => this.handleGenres(genre.name)}> {genre.name} </li>
                                     )
                                 })
                             }
                         </ul>
-                        <div> Curr Genre : {cGenre}</div>
+                        {/* <div> Curr Genre : {cGenre}</div> */}
                         </>
                         :
                         <div className="d-flex justify-content-center mt-3">
