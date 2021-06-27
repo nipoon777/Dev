@@ -153,7 +153,7 @@ export default class Movies extends Component {
             
             <div className="container">
             <div className = "row mt-3">
-                <div className = "col-3">
+                <div className = "col-lg-3 col-md-6 col-sm-12">
                         {genres.length > 1 ? 
                         <>
                         <ul className="list-group">
@@ -178,7 +178,7 @@ export default class Movies extends Component {
                     }
 
                 </div>
-                <div className = "col-9 table-responsive">
+                <div className = "col-lg-9 col-md-12 col-sm-12 table-responsive">
                     <input type = "text" className= "form-control col-3" placeholder ="Enter here" value = {this.state.currSearchText} onChange = {this.handleChange}></input>
                     <input type = "number" className= "form-control col-3 mt-3" placeholder ="Limit" value = {this.state.limit > filterList.length ? filterList.length : this.state.limit}
                      onChange = {this.handleLimit} min ="1" max = {movies.length}></input>
