@@ -6,13 +6,19 @@ import UseEffect1 from './UseEffects/UseEffect1';
 import UseEffect2 from './UseEffects/UseEffect2';
 import Infinite from './UseEffects/Infinite';
 import UseEffect3 from './UseEffects/UseEffect3';
+import UseEffectCleanUp from './UseEffects/CleanUp/UseEffectCleanUp';
+import UseEffectCleanUp2 from './UseEffects/CleanUp/UseEffectCleanUp2';
+import MainComponent from './Context/MainComponent';
 function App() {
   return (
     // <UseState/>
     // <UseEffect1/>
     // <UseEffect2/>
     // <Infinite/>
-    <UseEffect3/>
+    // <UseEffect3/>
+    // <UseEffectCleanUp/>
+    // <UseEffectCleanUp2/>
+    <MainComponent/>
 
   );
 }
