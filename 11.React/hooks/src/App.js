@@ -9,6 +9,7 @@ import UseEffect3 from './UseEffects/UseEffect3';
 import UseEffectCleanUp from './UseEffects/CleanUp/UseEffectCleanUp';
 import UseEffectCleanUp2 from './UseEffects/CleanUp/UseEffectCleanUp2';
 import MainComponent from './Context/MainComponent';
+import Central from './Context2/Central';
 function App() {
   return (
     // <UseState/>
@@ -18,7 +19,8 @@ function App() {
     // <UseEffect3/>
     // <UseEffectCleanUp/>
     // <UseEffectCleanUp2/>
-    <MainComponent/>
+    // <MainComponent/>
+    <Central/>
 
   );
 }
