@@ -16,15 +16,16 @@
         </div>
         <div class="menu_container">
             <div class="operation_container">
-                <div class="save_container">
-                    <i class="far fa-save"></i>
+                <div class="save_container save">
+                    <i class="far fa-save "></i>
                     Save
                 </div>
-                <div class="download_container">
-                    <i class="fas fa-download"></i>
-                    Download
+                <div class="open_container open">
+                    <i class="far fa-folder-open"></i>
+                    <input type="file" id="" class="far fa-folder-open openfile" value="Open">
+                    Open
                 </div>
-                <div class="delete_container">
+                <div class="delete_container delete">
                     <i class="fas fa-trash"></i>
                     Delete
                 </div>
@@ -57,7 +58,7 @@
 
                     </select>
                     <div class="color_container">
-                        <input type="color" id="color" class = "color">
+                        <input type="color" id="color" class = "material-icons icon-color-fill color" value="format_color_fill">
                         <input type="color" id="bg_color" class = "bg_color">
                     </div>
                 </div>
@@ -99,5 +100,6 @@
     </div>
     <script src="init.js" defer></script>
     <script src="script.js" defer></script>
+    <script src = "newopensave.js" defer></script>
 </body>
 </html>

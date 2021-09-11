@@ -124,6 +124,36 @@ function setUI(sheetDB){
     }
 }
 
+function setUIDefault(sheetDB){
+    for( let i = 0 ; i < sheetDB.length ; i++ ){
+        for( let j = 0 ; j < sheetDB[i].length ; j++){
+            let cellObj = {
+                bold : false,
+                italic : false,
+                underline : false,
+                fontFamily : "Arial",
+                halign : "left",
+                fontSize : "16",
+                color : "#000000",
+                bgColor : "#ffffff",
+                value : "",
+                children: [],
+                formula :""
+            }
+            sheetDB[i][j] = cellObj;
+            let cell = document.querySelector(`.col[rid="${i}"][cid="${j}"]`);
+            cell.style.fontWeight = "normal";
+            cell.style.fontStyle = "normal";
+            cell.style.halign = "left";
+            cell.style.textDecoration = "none";
+            cell.style.fontFamily = "Arial";
+            cell.style.color = "#000000";
+            cell.style.fontSize = "16";
+            cell.style.backgroundColor = "#ffffff";
+            cell.innerText = "";
+        }
+    }
+}
 for( let i = 0 ;i < allCells.length ; i++){
     allCells[i].addEventListener("blur", handleCellData);
     allCells[i].addEventListener("keydown", function handleHeight( e ){

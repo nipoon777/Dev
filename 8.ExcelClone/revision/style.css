@@ -50,10 +50,13 @@ body{
     font-size: 2rem;
 }
 
-.fa-download{
+.fa-folder-open{
     font-size: 2rem;
 }
-
+.openfile{
+    opacity: 0;
+    font-size: 0px;
+}
 .fa-trash{
     font-size: 2rem;
 }
