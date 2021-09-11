@@ -1,7 +1,7 @@
 import React, {useState, useContext,useEffect} from 'react';
 import {auth} from "../firebase";
 
-const AuthContext = React.createContext();
+export const AuthContext = React.createContext();
 
 
 
@@ -28,7 +28,7 @@ function AuthProvider({children}) {
         const unsubscribe = auth.onAuthStateChanged(user =>{
             setCurrUser(user);
             setLoading(false);
-        });
+        })
         return () =>{
             unsubscribe();
         }

@@ -257,7 +257,7 @@ allCells[0].click();
 alignmentContainer.addEventListener("click", handleAlignment);
 
 function handleAlignment(e){
-    let target = e.path[0].classList[0];
+    let target = e.path[0].classList[2];
     let address = addressBar.value;
     let {cid, rid} = getRowIdAndColId(address);
 
@@ -296,7 +296,7 @@ function getRowIdAndColId(address){
 fontContainer.addEventListener("click", handleFontContainerClick);
 
 function handleFontContainerClick(e){
-    let target = e.path[0].classList[0];
+    let target = e.path[0].classList[2];
     console.log(target);
     let address = addressBar.value;
     let {rid, cid} = getRowIdAndColId(address);

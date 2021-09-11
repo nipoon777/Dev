@@ -49,7 +49,7 @@ function initSheetDB(){
                 halign : "left",
                 fontSize : "16",
                 color : "#000000",
-                bgColor : "#000000",
+                bgColor : "#ffffff",
                 value : "",
                 children: [],
                 formula :""
