@@ -412,20 +412,46 @@ function handleFormula(e){
         let { rid, cid } = getRowIdAndColId(address);
         let formulaInp = formulaInput.value;
         let prevFormula = sheetDB[rid][cid].formula;
+        let cellName = address;
         if( prevFormula != "" && prevFormula != formulaInp ){
             removeFormula(sheetDB[rid][cid], address);
         }
-        let val = evaluateFormula(formulaInp);
-        //Abhi Evaluate formula ko call karenge
-        
-        // UI mai bhi Set Karna Hai
-        setUIbyFormula(val, rid, cid);
-        // Set karna Padega abhi DB mai jo bhi value aaya hai Sath hi sath Parent mai bhi child ko add karna hai
-        setContentsInDb(val, formulaInp,rid, cid);
+        if( checkCycle(formulaInp, rid, cid, cellName)){
+            alert("Formula cannot be evaluated Cycle Detected");
+        }else{
+            let val = evaluateFormula(formulaInp);
+            //Abhi Evaluate formula ko call karenge
+            
+            // UI mai bhi Set Karna Hai
+            setUIbyFormula(val, rid, cid);
+            // Set karna Padega abhi DB mai jo bhi value aaya hai Sath hi sath Parent mai bhi child ko add karna hai
+            setContentsInDb(val, formulaInp,rid, cid);
+
+        }
 
     }
 }
+function checkCycle( formulaInp, rid, cid, cellName ){
+    let cellObj = sheetDB[rid][cid];
+    cellObj.formula = formulaInp;
 
+    let formulaArr = formulaInp.split(" ");
+    let childrens = cellObj.children;
+
+    for( let i = 0 ; i < childrens.length ; i++ ){
+        for( let j = 0 ; j < formulaArr.length ; j++ ){
+            if( childrens[i] == formulaArr[j] || formulaArr[j] == cellName){
+                return true;
+            }
+        }
+    }
+    for( let j = 0 ; j < formulaArr.length ; j++ ){
+        if( formulaArr[j] == cellName){
+            return true;
+        }
+    }
+
+}
 function setContentsInDb(val, formula, rid, cid){
     let cellObj = sheetDB[rid][cid];
     cellObj.formula = formula;
