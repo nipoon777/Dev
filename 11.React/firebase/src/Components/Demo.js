@@ -65,7 +65,7 @@ function Demo() {
             </>:
                 <>
                 <h2>{user.uid} is Signed in </h2>
-                <button onClick = {handleSignout} >Sign Out</button>
+                  <button onClick = {handleSignout} >Sign Out</button>
                 </>
     }    
         </>
