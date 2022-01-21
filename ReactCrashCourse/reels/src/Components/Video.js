@@ -17,7 +17,7 @@ function Video(props) {
         }
     }
     return (
-        <video className = "videos-styling" onEnded = {handleScroll} controls src = {props.src} id = {props.id} muted = "muted" onClick={ handleClick }> 
+        <video className = "videos-styling" onEnded = {handleScroll}  src = {props.src} id = {props.id} muted = "muted" onClick={ handleClick }> 
 
         </video>
     )
