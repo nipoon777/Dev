@@ -6,7 +6,7 @@ import { AuthProvider } from './Context/AuthContext';
 import Login from './Components/Login';
 import Feed from './Components/Feed';
 import PrivateRouter from './Components/PrivateRouter';
-
+import Profile from "./Components/Profile";
 function App() {
   return (
     <>
@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path = '/login' element = {<Login/>}>
           </Route>
+          <Route path = "/profile/:id" element = {<Profile/>} />
           <Route path = '/signup' element = {<SignUp/> }/>
           <Route path = "/" element = {<PrivateRouter> <Feed/></PrivateRouter>} />
          

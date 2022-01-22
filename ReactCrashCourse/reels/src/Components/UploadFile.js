@@ -78,7 +78,7 @@ function UploadFile(props) {
 
     }
     return (
-        <div>
+        <div style={{marginTop:'5rem',marginBottom:'0.5rem'}}>
             { error != "" ?<Alert severity="error">{error}</Alert> 
             : 
             <>
@@ -94,7 +94,7 @@ function UploadFile(props) {
                 </Button>
 
                 </label>
-                {loading && <LinearProgress color="secondary" style={{marginTop:'3%'}} />}
+                {loading && <LinearProgress color="secondary" style={{marginTop:'2%'}} />}
             </>
             }
         </div>

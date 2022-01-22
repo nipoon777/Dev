@@ -31,7 +31,7 @@
 .icon-styling{
     position: absolute;
     bottom: 2%;
-    left: 11%;
+    left: 12%;
 }
 
 .like{
@@ -66,9 +66,7 @@
 }
 
 .video-modal video{
-    margin-top: 100px;
-    height: 240px;
-    width: 420px;
+    height: 85vh;
 }
 
 .comment-modal{

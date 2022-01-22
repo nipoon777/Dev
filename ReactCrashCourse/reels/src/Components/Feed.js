@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import UploadFile from './UploadFile';
 import {database} from "../firebase";
 import Posts from "./Posts";
+import Navbar from './Navbar';
 
 function Feed() {
     const {user, logout} = useContext(AuthContext);
@@ -24,15 +25,18 @@ function Feed() {
         history("/login");
     }
     return (
-        <div  style = {{ display : "flex", justifyContent : "center", flexDirection : "column", alignItems : "center"}}>
-            <div className='comp' style = {{ width : "50%" }}>
+        <>
+        <Navbar userData={userData}/>
+        <div style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+            {/* <div className='comp' style = {{ width : "50%" }}>
                 <h1>Hello</h1>
                 <button onClick={handlelogout}>Logout</button>
                 
-            </div>
+            </div> */}
             <UploadFile user = {userData} />
             <Posts userData = {userData} />
         </div>
+        </>
     )
 }
 
