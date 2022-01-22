@@ -1,3 +1,41 @@
+# Reels Clone
+
+Deployed Version - https://reels-b1830.web.app/login
+
+This Application is a replication of the actual Instagram Application. Here we Implement the backend operation using Firebase as a backend service
+
+The working version are as shown below:
+<img src = "./img1.png"/>
+
+# The Website is loaded with features allowing users to have a actual social media experience
+
+# Features
+
+- Authentication
+- Uploading Videos
+- Responsive
+- Dynamic 
+
+<img src = "./img2.png" />
+
+# Learnings:
+
+React Hooks, Context switching, FireBase, Material UI
+
+# Technologies :
+JavaScript, MaterialUI, Component designs
+
+<img src = "./img3.png" />
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
