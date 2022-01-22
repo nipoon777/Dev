@@ -6,7 +6,7 @@ This Application is a replication of the actual Instagram Application. Here we I
 
 The working version are as shown below:
 
-<img src = "./img1.png"/>
+<img src = "./reel1.png"/>
 
 # The Website is loaded with features allowing users to have a actual social media experience
 
@@ -17,7 +17,7 @@ The working version are as shown below:
 - Responsive
 - Dynamic 
 
-<img src = "./img2.png" />
+<img src = "./reel2.png" />
 
 # Learnings:
 
@@ -26,7 +26,7 @@ React Hooks, Context switching, FireBase, Material UI
 # Technologies :
 JavaScript, MaterialUI, Component designs
 
-<img src = "./img3.png" />
+<img src = "./reel3.png" />
 
 
 
