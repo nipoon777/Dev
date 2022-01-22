@@ -1,10 +1,11 @@
 # Reels Clone
 
-Deployed Version - https://reels-b1830.web.app/login
+Deployed Version - https://reels-b1830.web.app/
 
 This Application is a replication of the actual Instagram Application. Here we Implement the backend operation using Firebase as a backend service
 
 The working version are as shown below:
+
 <img src = "./img1.png"/>
 
 # The Website is loaded with features allowing users to have a actual social media experience
