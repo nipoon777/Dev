@@ -5,8 +5,15 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-
-
+import { Link } from 'react-router-dom';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+import FolderIcon from '@mui/icons-material/Folder';
+import { Divider } from '@mui/material';
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
   ))(({ theme }) => ({
@@ -68,11 +75,27 @@ function Albums({userId}) {
           <Typography sx={{fontWeight :"bold", fontSize : "24px"}}>Albums</Typography>
         </AccordionSummary>
         <AccordionDetails>
+        <List>
         {
             albums && albums.map( (album, index) => (
-            <Typography><b>Title :</b> {album.title}</Typography>
+            <Link to={`/users/${userId}/album/${album.id}`} style={{textDecoration:'none'}} >
+                <ListItem key = {index}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={album.title}
+                    sx ={{ color :"black"}}
+                  />
+                </ListItem>
+                <Divider/>
+            
+            </Link>
             ) )
         }
+        </List>
         </AccordionDetails>
     </Accordion>
   )
