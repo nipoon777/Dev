@@ -13,6 +13,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Divider } from "@mui/material";
+
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -49,6 +50,12 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
+/**
+ * Get  albums using UserId
+ * @param {*} param0
+ *
+ * @returns
+ */
 function Albums({ userId }) {
   const [albums, setalbums] = useState(null);
   const [expanded, setExpanded] = useState(null);
@@ -57,6 +64,9 @@ function Albums({ userId }) {
     setExpanded(newExpanded ? panel : false);
   };
 
+  /**
+   * Fetch All the albums
+   */
   useEffect(async () => {
     const resp = await fetch(
       `https://jsonplaceholder.typicode.com/albums?userId=${userId}`

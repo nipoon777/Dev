@@ -7,7 +7,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 function appBarLabel(label) {
   return (
-    <Toolbar>
+    <Toolbar >
       <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 0 }}>
         <img src="https://img.icons8.com/color/48/000000/walmart.png" />
       </IconButton>
@@ -37,7 +37,7 @@ export default function Navbar() {
   return (
     // <Stack spacing={2} sx={{ flexGrow: 1 }}>
     <ThemeProvider theme={darkTheme}>
-      <AppBar position="static" color="primary">
+      <AppBar position="sticky" color="primary">
         {appBarLabel("Walmart Club")}
       </AppBar>
     </ThemeProvider>

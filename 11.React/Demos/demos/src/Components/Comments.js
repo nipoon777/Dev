@@ -79,6 +79,8 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
+
+
 function Comments({ postId }) {
   const [comments, setComments] = useState(null);
   const [expanded, setExpanded] = useState(null);
@@ -88,8 +90,10 @@ function Comments({ postId }) {
   const [email, setemail] = useState(null);
   const [body, setbody] = useState(null);
 
-  // console.log(postId);
-
+  // console.log(postId); 
+  /**
+   * Get All Comments on the Particular Post
+   */
   useEffect(async () => {
     const resp = await fetch(
       `https://jsonplaceholder.typicode.com/comments?postId=${postId}`

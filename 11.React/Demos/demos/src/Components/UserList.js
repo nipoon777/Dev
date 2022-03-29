@@ -13,6 +13,7 @@ function UserList() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
+  
 
   const handlePopoverOpen = (event, userObj) => {
     setAnchorEl(event.currentTarget);
@@ -28,6 +29,9 @@ function UserList() {
 
   const open = Boolean(anchorEl);
 
+  /**
+   *  Get all Users 
+   */
   useEffect(async () => {
     let response = await fetch("https://jsonplaceholder.typicode.com/users");
     let data = await response.json();
@@ -47,8 +51,9 @@ function UserList() {
           flexWrap: "wrap",
         }}
       >
-        {users &&
-          users.map((user) => (
+
+        {/* Loop through Users And Display As Cards */}
+        {users && users.map((user) => (
             <div key={user.id}>
               <Card
                 sx={{
@@ -110,8 +115,8 @@ function UserList() {
                     onClose={handlePopoverClose}
                     disableRestoreFocus
                   >
-                    <Typography sx={{ p: 1 }}>Username : {username}</Typography>
-                    <Typography sx={{ p: 1 }}>Email : {email}</Typography>
+                    <Typography sx={{ p: 1 }}><b>Username:</b> {username}</Typography>
+                    <Typography sx={{ p: 1 }}><b>Email:</b> {email}</Typography>
                   </Popover>
                 </CardContent>
               </Card>

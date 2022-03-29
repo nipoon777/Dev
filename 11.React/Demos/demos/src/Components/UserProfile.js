@@ -11,7 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Divider } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import { styled,alpha } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
@@ -24,6 +24,8 @@ import Comments from "./Comments";
 import ModalUnstyled from '@mui/base/ModalUnstyled';
 import TextField from '@mui/material/TextField';
 import Albums from "./Albums";
+import SearchIcon from '@mui/icons-material/Search';
+import InputBase from '@mui/material/InputBase';
 
 
 
@@ -95,7 +97,52 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-function UserProfile(props) {
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
+
+
+
+function UserProfile() {
   const { userId } = useParams();
 
   const [userData, setUserData] = useState(null);
@@ -109,6 +156,9 @@ function UserProfile(props) {
   const [updateUD, setupdateUD] = useState(null);
   const [updatepostID, setupdatepostID] = useState(null);
 
+  const [searchText, setsearchText] = useState("");
+  let filteredList = [];
+
   const handleOpen = (postU) => {
     setOpen(true);
     setTitle(postU.title);
@@ -119,16 +169,9 @@ function UserProfile(props) {
   } 
   const handleClose = () => setOpen(false);
 
-  useEffect( async() => {
-    const resp = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-    const data = await resp.json();
-    // console.log(data);
-    setPosts(data);
-    console.log(postData);
-  }, [])
-
-  
-
+  /**
+   * Obtain the User Info using User Id
+   */
   useEffect(async () => {
     const resp = await fetch(
       `https://jsonplaceholder.typicode.com/users/${userId}`
@@ -139,12 +182,27 @@ function UserProfile(props) {
     setUserData(data);
   }, []);
 
+  /**
+   * Obtain the Users Posts 
+   */
+  useEffect( async() => {
+    const resp = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+    const data = await resp.json();
+    // console.log(data);
+    setPosts(data);
+    console.log(postData);
+  }, [])
+
+  
+
+  
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
   const deletePost = (postId) => {
     setPosts( postData.filter( post => post.id !== postId));
+    filteredList = postData;
   }
 
   const updatePost = () => {
@@ -155,9 +213,25 @@ function UserProfile(props) {
       "body": content
   }
     setPosts ( postData.map( (post) => post.id === updatepostID ? updatedPost : post ) ) ;
+    filteredList = postData;
     handleClose();
   }
-  // const [key, setKey ] = useState(null);
+
+  const handleSearch = (text) =>{
+    setsearchText(text);
+    console.log(searchText);
+  }
+  
+
+  if( searchText != "" ){
+    filteredList = postData.filter((post) => {
+      let title = post.title.trim().toLowerCase();
+      return title.includes( searchText.toLowerCase() );
+    })
+  }else{
+    filteredList = postData;
+  }
+
 
   return (
     <>
@@ -178,7 +252,6 @@ function UserProfile(props) {
             marginTop: "10px",
             marginBottom : "10px"
           }}
-          // key={user.id}
         >
           <CardMedia
             sx={{
@@ -242,10 +315,22 @@ function UserProfile(props) {
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography sx={{fontWeight :"bold", fontSize : "24px"}}>Posts</Typography>
         </AccordionSummary>
+        <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              value = {searchText}
+              onChange = {(e) => {handleSearch(e.target.value)}}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+        </Search>
+
         <AccordionDetails>
           
                 {
-                    postData && postData.map((post, index) =>(
+                    filteredList && filteredList.map((post, index) =>(
                         <Accordion key = {index}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
@@ -259,7 +344,10 @@ function UserProfile(props) {
                           <Typography>
                             <b>Content :</b> {post.body}
                           </Typography>
+
+                          {/* Comments Component to Make Fetch Request */}
                           <Comments postId = {post.id} />
+                        
                         </AccordionDetails>
                           {/* Edit Handling Open New Modal */}
                           <Stack direction="row" sx ={{marginLeft :"25px", marginBottom : "20px"}}spacing={2}>
