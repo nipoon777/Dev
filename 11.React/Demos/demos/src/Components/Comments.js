@@ -5,11 +5,9 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
 import { Divider } from "@mui/material";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 
@@ -85,13 +83,10 @@ function Comments({ postId }) {
   const [comments, setComments] = useState(null);
   const [expanded, setExpanded] = useState(null);
   const [open, setOpen] = useState(false);
-  
-    const [name, setname] = useState(null);
-    const [email, setemail] = useState(null);
-    const [body, setbody] = useState(null);
 
-
-
+  const [name, setname] = useState(null);
+  const [email, setemail] = useState(null);
+  const [body, setbody] = useState(null);
 
   // console.log(postId);
 
@@ -113,20 +108,20 @@ function Comments({ postId }) {
   };
   const handleClose = () => setOpen(false);
 
-  const addComment = () =>{
-        const nId = Object.keys(comments).length;
-      const newComment = {
-          postId : postId,
-          id : nId + 1,
-          name : name,
-          email : email,
-          body : body
-      }
-      const uComment = comments;
-      uComment.push(newComment);
-      setComments(uComment);
-      handleClose();
-  }
+  const addComment = () => {
+    const nId = Object.keys(comments).length;
+    const newComment = {
+      postId: postId,
+      id: nId + 1,
+      name: name,
+      email: email,
+      body: body,
+    };
+    const uComment = comments;
+    uComment.push(newComment);
+    setComments(uComment);
+    handleClose();
+  };
 
   return (
     <Accordion
@@ -175,7 +170,7 @@ function Comments({ postId }) {
             name="name"
             fullWidth
             margin="normal"
-            onBlur = {(e) => setname(e.target.value)}
+            onBlur={(e) => setname(e.target.value)}
           />
           <TextField
             required
@@ -184,23 +179,23 @@ function Comments({ postId }) {
             name="email"
             fullWidth
             margin="normal"
-            type = "email"
-            onBlur = {(e) => setemail(e.target.value)}
+            type="email"
+            onBlur={(e) => setemail(e.target.value)}
           />
 
-        <TextField
-          required
-          id="outlined-multiline-static"
-          label="Content"
-          multiline
-          rows={4}
-          fullWidth
-          onBlur = {(e) => setbody(e.target.value)}
-        />
+          <TextField
+            required
+            id="outlined-multiline-static"
+            label="Content"
+            multiline
+            rows={4}
+            fullWidth
+            onBlur={(e) => setbody(e.target.value)}
+          />
 
           <Button
             variant="contained"
-            sx={{  marginBottom: "20px", marginTop: "10px" }}
+            sx={{ marginBottom: "20px", marginTop: "10px" }}
             onClick={addComment}
           >
             Add Comment

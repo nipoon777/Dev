@@ -11,7 +11,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Divider } from "@mui/material";
-import Posts from "./Posts";
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -23,7 +22,6 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Comments from "./Comments";
 import ModalUnstyled from '@mui/base/ModalUnstyled';
-import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Albums from "./Albums";
 
